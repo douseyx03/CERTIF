@@ -14,6 +14,7 @@ class Field extends Model
         'fieldname',
         'description',
         'picture',
+        'user_id',
     ];
 
     public function user(): BelongsTo

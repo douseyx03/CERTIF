@@ -22,10 +22,7 @@ class StoreFieldRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fieldname' => [
-                'required',
-                'regex:/^[A-Z][a-zA-Z]* $/',
-            ],
+            'fieldname' => 'required|string|regex:/^[A-Z][a-zA-Z\s]*$/',
             'description' => 'required|string',
             'picture' => 'required|image|max:2048',
         ];
