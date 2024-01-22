@@ -16,7 +16,7 @@ class FieldController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Field::where('is_archived', false)->get());
     }
 
     /**
@@ -33,14 +33,18 @@ class FieldController extends Controller
     public function store(StoreFieldRequest $request): JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();
-        // $user = Auth::user();
         
-        $field = new Field([
-            'fieldname' => $request->input('fieldname'),
-            'description' => $request->input('description'),
-            'picture' => $request->file('picture')->store('pictures/field', 'public'),
-            'user_id' => (int) $user->id,
-        ]);
+        $field = new Field();
+        $field->fieldname = $request->input('fieldname');
+        $field->description = $request->input('description');
+        $field->picture = $request->input('picture');
+        $field->user_id = $user->id;
+        if($request->file('picture')){
+            $file= $request->file('picture');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('pictures/field'), $filename);
+            $field['picture']= $filename;
+        }
         //  dd($field);
         $field->save();
         return response()->json(['message' => 'Votre domaine a bien été créé.'], 201);
@@ -74,6 +78,9 @@ class FieldController extends Controller
      */
     public function destroy(Field $field)
     {
-        //
+        $field->is_archived = true;
+        $field->update();
+
+        return response()->json($field);
     }
 }

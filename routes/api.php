@@ -32,6 +32,7 @@ Route::middleware(['isAdmin', 'auth:api'])->group(function () {
         return 't admun fr r';
     });
     Route::post('/addfield', [FieldController::class, 'Store']);
+    Route::post('/deletefield/{field}',[FieldController::class, 'destroy']);
 });
 
 Route::middleware('auth:api')->group(function () {
@@ -40,3 +41,5 @@ Route::middleware('auth:api')->group(function () {
     });
     // Autres routes pour les utilisateurs simples...
 });
+
+Route::post('/displayfield', [FieldController::class, 'index']);
