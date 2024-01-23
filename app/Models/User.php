@@ -69,4 +69,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Field::class);
     }
+
+    public function forum(): HasMany
+    {
+        return $this->hasMany(Forum::class);
+    }
 }

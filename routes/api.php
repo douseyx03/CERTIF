@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\FieldController;
+use App\Http\Controllers\ForumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,18 +29,21 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware(['isAdmin', 'auth:api'])->group(function () {
-    Route::get('/admin/dashboard',function(){
-        return 't admun fr r';
-    });
+    
     Route::post('/addfield', [FieldController::class, 'Store']);
     Route::post('/deletefield/{field}',[FieldController::class, 'destroy']);
+
+    Route::post('/addforum', [ForumController::class, 'Store']);
+    Route::post('/deleteforum/{forum}',[ForumController::class, 'destroy']);
+
 });
 
 Route::middleware('auth:api')->group(function () {
     Route::get('/user/dashboard',function(){
-        return 't Hamady fr r';
+        return 't frr';
     });
-    // Autres routes pour les utilisateurs simples...
+    Route::post('/displayforum', [ForumController::class, 'show']);
+    
 });
 
 Route::post('/displayfield', [FieldController::class, 'index']);
