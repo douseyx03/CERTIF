@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\TopicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,13 @@ Route::middleware('auth:api')->group(function () {
         return 't frr';
     });
     Route::post('/displayforum', [ForumController::class, 'show']);
+
+    Route::post('/addtopic',[TopicController::class,'store']);
+    Route::post('/displayspecifictopic/{topic}',[TopicController::class,'show']);
+    Route::post('/displaytopic',[TopicController::class,'index']);
+    Route::post('/updatespecifictopic/{topic}',[TopicController::class,'update']);
+    Route::post('/deletespecifictopic/{topic}',[TopicController::class,'destroy']);
+
     
 });
 
