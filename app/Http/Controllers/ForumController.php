@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreForumRequest;
 use App\Http\Requests\UpdateForumRequest;
-use App\Models\Field;
 use App\Models\Forum;
 use Illuminate\Support\Facades\Log;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\TopicController;
 
 /*
@@ -50,6 +51,11 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/displaytopic',[TopicController::class,'index']);
     Route::post('/updatespecifictopic/{topic}',[TopicController::class,'update']);
     Route::post('/deletespecifictopic/{topic}',[TopicController::class,'destroy']);
+
+    Route::post('/sendmessage',[MessageController::class,'store']);
+    Route::post('/displaymessage',[MessageController::class,'index']);
+    Route::post('/deletespecificmessage/{message}',[MessageController::class,'destroy']);
+    Route::post('/updatespecificmessage/{message}',[MessageController::class,'update']);
 
     
 });

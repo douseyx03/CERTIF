@@ -12,7 +12,7 @@ use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class TopicController extends Controller
 {
-
+    const ATTRIBUT = 'required|integer';
     const USER_AUTHENTICATED_MESSAGE = 'User authenticated:';
 
 
@@ -54,12 +54,12 @@ class TopicController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
         
         $request->validate([
-            'content' => 'required|string',
+            'content' => self::ATTRIBUT,
             'message_received' => 'integer',
-            'forum_id' => 'required|integer',
+            'forum_id' => self::ATTRIBUT,
         ]);
         
-        Log::info('User authenticated: ' . $user->id);
+        Log::info(self::USER_AUTHENTICATED_MESSAGE . $user->id);
         
         $existingTopic = Topic::where('content', $request->input('content'))
                                 ->where('user_id', $user->id)
@@ -95,7 +95,7 @@ class TopicController extends Controller
     {
         $user = JWTAuth::parseToken()->authenticate();
         
-        Log::info('User authenticated: ' . $user->id);
+        Log::info(self::USER_AUTHENTICATED_MESSAGE . $user->id);
         
         return response()->json($topic);
     }
@@ -130,8 +130,8 @@ class TopicController extends Controller
                 $request->validate([
                     'content' => 'required|string',
                     'message_received' => 'integer',
-                    'user_id' => 'required|integer',
-                    'forum_id' => 'required|integer',
+                    'user_id' => self::ATTRIBUT,
+                    'forum_id' => self::ATTRIBUT,
                 ], [
                     'content.required' => 'Le contenu est requis.',
                     'content.string' => 'Le contenu doit être une chaîne de caractères.',
