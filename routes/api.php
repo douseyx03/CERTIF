@@ -6,7 +6,9 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\TopicController;
+use App\Models\Reply;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,9 +43,7 @@ Route::middleware(['isAdmin', 'auth:api'])->group(function () {
 });
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('/user/dashboard',function(){
-        return 't frr';
-    });
+
     Route::post('/displayforum', [ForumController::class, 'show']);
 
     Route::post('/addtopic',[TopicController::class,'store']);
@@ -56,6 +56,11 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/displaymessage',[MessageController::class,'index']);
     Route::post('/deletespecificmessage/{message}',[MessageController::class,'destroy']);
     Route::post('/updatespecificmessage/{message}',[MessageController::class,'update']);
+
+    Route::post('/sendreply',[ReplyController::class,'store']);
+    Route::post('/displayreply',[ReplyController::class,'index']);
+    Route::post('/deletespecificreply/{reply}',[ReplyController::class,'destroy']);
+    Route::post('/updatespecificreply/{reply}',[ReplyController::class,'update']);
 
     
 });

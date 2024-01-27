@@ -100,7 +100,6 @@ class MessageController extends Controller
         $response = ['message' => 'Votre message a bien été créé.'];
     } catch (\Exception $e) {
         Log::error('Exception occurred: ' . $e->getMessage());
-        dd($e->getMessage());
         $response = ['error' => 'Une erreur est survenue lors de la création du message.', 500];
     }
     
