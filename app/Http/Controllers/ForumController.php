@@ -7,9 +7,11 @@ use App\Http\Requests\UpdateForumRequest;
 use App\Models\Forum;
 use Illuminate\Support\Facades\Log;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
-
+use OpenApi\Annotations as OA;
+// @include('swagger_info');
 class ForumController extends Controller
 {
+   
     /**
      * Display a listing of the resource.
      */
@@ -27,8 +29,44 @@ class ForumController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
+ * Stocke une nouvelle ressource créée dans le stockage (Il sera utilisé pour stocker dans notre base de données les forums nouvellement créés).
+ *
+ * @OA\Post(
+ *     path="/api/addforum",
+ *     tags={"Forums"},
+ *     summary="Stocke une nouvelle ressource créée",
+ *     @OA\RequestBody(
+ *         @OA\JsonContent(ref="#/components/schemas/StoreForumRequest")
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Opération réussie",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Votre forum a bien été créé."
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Entité non traitable",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Il existe déjà un forum pour ce domaine"
+ *             )
+ *         )
+ *     )
+ * )
+ *
+ * @param StoreForumRequest $request
+ * @return JsonResponse
+ */
     public function store(StoreForumRequest $request)
     {
         $user = JWTAuth::parseToken()->authenticate();
@@ -59,9 +97,25 @@ class ForumController extends Controller
         return response()->json(['message' => 'Votre forum a bien été créé.'], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+  /**
+ * Affiche toutes les ressources.
+ *
+ * @OA\Get(
+ *     path="/api/displayforum",
+ *     tags={"Forums"},
+ *     summary="Affiche toutes les ressources",
+ *     @OA\Response(
+ *         response=200,
+ *         description="Opération réussie",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(ref="#/components/schemas/Forum")
+ *         )
+ *     )
+ * )
+ *
+ * @return JsonResponse
+ */
     public function show(Forum $forum)
     {
         $ourforum = Forum::all();
@@ -84,9 +138,40 @@ class ForumController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+   /**
+ * Supprime la ressource spécifiée.
+ * 
+ * @OA\Delete(
+ *     path="/api/deleteforum/{forum}",
+ *     tags={"Forums"},
+ *     summary="Supprime la ressource spécifiée",
+ *     @OA\RequestBody(
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="id",
+ *                 type="integer",
+ *                 description="ID de la ressource à supprimer"
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Opération réussie",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Le forum a été supprimé avec succès."
+ *             )
+ *         )
+ *     )
+ * )
+ *
+ * @param int $id
+ * @return JsonResponse
+ */
     public function destroy($id)
     {
         Forum::destroy($id);

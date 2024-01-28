@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use PHPOpenSourceSaver\JWTAuth\JWTAuth as JWTAuthJWTAuth;
+use OpenApi\Annotations as OA;
 
 class AuthController extends Controller
 {
@@ -16,7 +17,33 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
-
+/**
+ * @OA\Info(
+ *      title="Certif",
+ *      version="1.0.0",
+ *      description="Api de l'appli PENC"
+ * )
+ */
+     /**
+     * Authentifier l'utilisateur et obtenir le jeton JWT
+     *
+     * @OA\Post(
+     *     path="/api/login",
+     *     tags={"Auth"},
+     *     summary="Authentifier l'utilisateur et obtenir le jeton JWT",
+     *     description="Authentifier un utilisateur en fournissant son adresse e-mail et son mot de passe, et obtenir un jeton JWT en réponse",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"email", "password"},
+     *             @OA\Property(property="email", type="string", format="email", example="utilisateur@exemple.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="secret")
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Authentification réussie, jeton JWT reçu"),
+     *     @OA\Response(response="401", description="Non autorisé, identifiants invalides")
+     * )
+     */
     public function login(Request $request)
     {
         $request->validate([
@@ -44,6 +71,29 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Enregistrer un nouvel utilisateur
+     *
+     * @OA\Post(
+     *     path="/api/register",
+     *     tags={"Auth"},
+     *     summary="Enregistrer un nouvel utilisateur",
+     *     description="Enregistrer un nouvel utilisateur en fournissant les informations requises",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"firstname", "lastname", "email", "password", "password_confirmation"},
+     *             @OA\Property(property="firstname", type="string", example="John"),
+     *             @OA\Property(property="lastname", type="string", example="Doe"),
+     *             @OA\Property(property="email", type="string", format="email", example="nouveau@utilisateur.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="secret"),
+     *             @OA\Property(property="password_confirmation", type="string", format="password", example="secret")
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Inscription réussie, utilisateur créé"),
+     *     @OA\Response(response="422", description="Échec de la validation des données")
+     * )
+     */
     public function register(Request $request)
     {
 
@@ -68,6 +118,17 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Déconnecter l'utilisateur actuellement authentifié
+     *
+     * @OA\Post(
+     *     path="/api/logout",
+     *     tags={"Auth"},
+     *     summary="Déconnecter l'utilisateur actuellement authentifié",
+     *     description="Déconnecter l'utilisateur actuellement authentifié et révoquer le jeton JWT",
+     *     @OA\Response(response="200", description="Déconnexion réussie")
+     * )
+     */
     public function logout()
     {
         Auth::logout();
@@ -76,6 +137,18 @@ class AuthController extends Controller
         ]);
     }
 
+     /**
+     * Rafraîchir le jeton JWT actuel
+     *
+     * @OA\Post(
+     *     path="/api/refresh",
+     *     tags={"Auth"},
+     *     summary="Rafraîchir le jeton JWT actuel",
+     *     description="Rafraîchir le jeton JWT actuel en obtenant un nouveau jeton valide",
+     *     @OA\Response(response="200", description="Rafraîchissement réussi, nouveau jeton JWT reçu"),
+     *     @OA\Response(response="401", description="Non autorisé, jeton JWT invalide")
+     * )
+     */
     public function refresh()
     {
         return response()->json([

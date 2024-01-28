@@ -8,15 +8,45 @@ use App\Models\Message;
 use App\Models\Topic;
 use Illuminate\Support\Facades\Log;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
-
+use OpenApi\Annotations as OA;
+// @include('swagger_info');
 class MessageController extends Controller
 {
     const ATTRIBUT = 'required|integer';
     const USER_AUTHENTICATED_MESSAGE = 'User authenticated:';
 
-    /**
-     * Display a listing of the resource.
-     */
+
+
+   /**
+ * Retourne la liste des sujets avec leurs messages associés.
+ * 
+ * @OA\Get(
+ *     path="/api/displaymessage",
+ *     tags={"Messages"},
+ *     summary="Retourne la liste des sujets avec leurs messages associés",
+ *     @OA\Response(
+ *         response=200,
+ *         description="Opération réussie",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\AdditionalProperties(
+ *                 type="array",
+ *                 @OA\Items(ref="#/components/schemas/Message")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Erreur interne",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="error", type="string", example="An unexpected error occurred")
+ *         )
+ *     )
+ * )
+ *
+ * @return JsonResponse
+ */
     public function index()
     {
         try {
@@ -52,8 +82,49 @@ class MessageController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
+ * Crée un nouveau message dans un sujet spécifié.
+ * 
+ * @OA\Post(
+ *     path="/api/sendmessage",
+ *     tags={"Messages"},
+ *     summary="Crée un nouveau message dans un sujet spécifié",
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"message_content", "topic_id"},
+ *             @OA\Property(property="message_content", type="string", example="Contenu du message"),
+ *             @OA\Property(property="topic_id", type="integer", example=1)
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Opération réussie",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Votre message a bien été créé.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Requête incorrecte",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Un administrateur ne peut pas envoyer de message.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Erreur interne",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="error", type="string", example="Une erreur est survenue lors de la création du message.")
+ *         )
+ *     )
+ * )
+ *
+ * @param StoreMessageRequest $request
+ * @return JsonResponse
+ */
     public function store(StoreMessageRequest $request)
     {
     try {
@@ -123,8 +194,68 @@ class MessageController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     */
+ * Met à jour un message existant.
+ * 
+ * @OA\Put(
+ *     path="/api/updatespecificmessage/{message}",
+ *     tags={"Messages"},
+ *     summary="Met à jour un message existant",
+ *     @OA\Parameter(
+ *         name="message",
+ *         in="path",
+ *         required=true,
+ *         description="ID du message à mettre à jour",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"message_content", "user_id", "topic_id"},
+ *             @OA\Property(property="message_content", type="string", example="Nouveau contenu du message"),
+ *             @OA\Property(property="user_id", type="integer", example=1),
+ *             @OA\Property(property="topic_id", type="integer", example=1)
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Modifications effectuées avec succès",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Modifications effectuées avec succès."),
+ *             @OA\Property(property="resultat", type="object", ref="#/components/schemas/Message")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Non autorisé",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Unauthorized")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Accès refusé",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Ce message ne vous appartient pas.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Erreur interne",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Erreur interne. Veuillez réessayer."),
+ *             @OA\Property(property="error", type="string", example="Message d'erreur spécifique")
+ *         )
+ *     )
+ * )
+ *
+ * @param UpdateMessageRequest $request
+ * @param Message $message
+ * @return JsonResponse
+ */
     public function update(UpdateMessageRequest $request, Message $message)
     {
         $user = JWTAuth::parseToken()->authenticate();
@@ -164,8 +295,56 @@ class MessageController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     */
+ * Supprime un message existant.
+ *
+ * @OA\Delete(
+ *     path="/api/deletespecificmessage/{message}",
+ *     tags={"Messages"},
+ *     summary="Supprime un message existant",
+ *     @OA\Parameter(
+ *         name="message",
+ *         in="path",
+ *         required=true,
+ *         description="ID du message à supprimer",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Message supprimé avec succès par l'administrateur",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Le message a été supprimé avec succès par l'administrateur.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Votre message a été supprimé avec succès",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Votre message a été supprimé avec succès.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Accès refusé",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Vous n'êtes pas autorisé à supprimer ce message.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Erreur interne",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Une erreur est survenue lors de l'authentification.")
+ *         )
+ *     )
+ * )
+ *
+ * @param Message $message
+ * @return JsonResponse
+ */
     public function destroy(Message $message)
     {
         try {
