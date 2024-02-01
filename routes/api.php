@@ -33,36 +33,34 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware(['isAdmin', 'auth:api'])->group(function () {
-    
+
     Route::post('/addfield', [FieldController::class, 'Store']);
-    Route::post('/deletefield/{field}',[FieldController::class, 'destroy']);
+    Route::post('/updatespecificfield/{field}', [FieldController::class, 'update']);
+    Route::post('/deletefield/{field}', [FieldController::class, 'destroy']);
 
     Route::post('/addforum', [ForumController::class, 'Store']);
-    Route::post('/deleteforum/{forum}',[ForumController::class, 'destroy']);
-
+    Route::post('/deleteforum/{forum}', [ForumController::class, 'destroy']);
 });
 
 Route::middleware('auth:api')->group(function () {
 
     Route::post('/displayforum', [ForumController::class, 'show']);
 
-    Route::post('/addtopic',[TopicController::class,'store']);
-    Route::post('/displayspecifictopic/{topic}',[TopicController::class,'show']);
-    Route::post('/displaytopic',[TopicController::class,'index']);
-    Route::post('/updatespecifictopic/{topic}',[TopicController::class,'update']);
-    Route::post('/deletespecifictopic/{topic}',[TopicController::class,'destroy']);
+    Route::post('/addtopic', [TopicController::class, 'store']);
+    Route::post('/displayspecifictopic/{topic}', [TopicController::class, 'show']);
+    Route::post('/displaytopic', [TopicController::class, 'index']);
+    Route::post('/updatespecifictopic/{topic}', [TopicController::class, 'update']);
+    Route::post('/deletespecifictopic/{topic}', [TopicController::class, 'destroy']);
 
-    Route::post('/sendmessage',[MessageController::class,'store']);
-    Route::post('/displaymessage',[MessageController::class,'index']);
-    Route::post('/deletespecificmessage/{message}',[MessageController::class,'destroy']);
-    Route::post('/updatespecificmessage/{message}',[MessageController::class,'update']);
+    Route::post('/sendmessage', [MessageController::class, 'store']);
+    Route::post('/displaymessage', [MessageController::class, 'index']);
+    Route::post('/deletespecificmessage/{message}', [MessageController::class, 'destroy']);
+    Route::post('/updatespecificmessage/{message}', [MessageController::class, 'update']);
 
-    Route::post('/sendreply',[ReplyController::class,'store']);
-    Route::post('/displayreply',[ReplyController::class,'index']);
-    Route::post('/deletespecificreply/{reply}',[ReplyController::class,'destroy']);
-    Route::post('/updatespecificreply/{reply}',[ReplyController::class,'update']);
-
-    
+    Route::post('/sendreply', [ReplyController::class, 'store']);
+    Route::post('/displayreply', [ReplyController::class, 'index']);
+    Route::post('/deletespecificreply/{reply}', [ReplyController::class, 'destroy']);
+    Route::post('/updatespecificreply/{reply}', [ReplyController::class, 'update']);
 });
 
 Route::post('/displayfield', [FieldController::class, 'index']);
