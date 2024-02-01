@@ -65,7 +65,7 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Inscription effectuer avec success👏🏽',
             'user' => $user
-        ]);
+        ],201);
     }
 
     public function logout()

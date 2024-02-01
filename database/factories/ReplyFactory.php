@@ -17,7 +17,16 @@ class ReplyFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'reply_content' => $this->faker->paragraph,
+            'user_id' => function () {
+                return \App\Models\User::factory();
+            },
+            'message_id' => function () {
+                return \App\Models\Message::factory();
+            },
+            'is_archived' => $this->faker->boolean,
+            'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'updated_at' => $this->faker->dateTimeBetween('-1 year', 'now')
         ];
     }
 }

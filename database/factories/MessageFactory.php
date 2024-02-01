@@ -17,7 +17,16 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'message_content' => $this->faker->paragraph,
+            'user_id' => function () {
+                return \App\Models\User::factory();
+            },
+            'topic_id' => function () {
+                return \App\Models\Topic::factory();
+            },
+            'is_archived' => $this->faker->boolean,
+            'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'updated_at' => $this->faker->dateTimeBetween('-1 year', 'now')
         ];
     }
 }
