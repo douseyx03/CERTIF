@@ -1,0 +1,379 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "",
+        "description": "",
+        "version": ""
+    },
+    "servers": [
+        {
+            "url": "",
+            "description": "Server"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "paths": {
+        "/": {
+            "put": {
+                "summary": "ModifierDomaine",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "Domaine"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "field",
+                        "type": "string"
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "SupprimerDomaine",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "Domaine"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "field",
+                        "type": "string"
+                    }
+                ]
+            },
+            "get": {
+                "summary": "AfficherSujetSpecific",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "Sujet"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "topic",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/displayreply": {
+            "get": {
+                "summary": "AfficherReponse",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "Reponse"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/sendreply": {
+            "post": {
+                "summary": "AjouterReponse",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "Reponse"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/displaymessage": {
+            "get": {
+                "summary": "AfficherMessage",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "Message"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/addmessage": {
+            "post": {
+                "summary": "AjouterMessage",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "Message"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/displaytopic": {
+            "get": {
+                "summary": "AfficherSujets",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "Sujet"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/addtopic": {
+            "post": {
+                "summary": "AjouterSujet",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "Sujet"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/displayforum": {
+            "get": {
+                "summary": "AfficherForum",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "Forum"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/addforum": {
+            "post": {
+                "summary": "AjouterForum",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "Forum"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/displayfield": {
+            "get": {
+                "summary": "AfficherDomaine",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "Domaine"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/addfield": {
+            "post": {
+                "summary": "AjouterDomaine",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "Domaine"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/refresh": {
+            "post": {
+                "summary": "RefreshToken",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "JWTAuthentification"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "summary": "Deconnexion",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "JWTAuthentification"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/login": {
+            "post": {
+                "summary": "Connexion user simple",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "JWTAuthentification"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/register": {
+            "post": {
+                "summary": "Inscription",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                },
+                "tags": [
+                    "JWTAuthentification"
+                ],
+                "parameters": []
+            }
+        }
+    }
+}
