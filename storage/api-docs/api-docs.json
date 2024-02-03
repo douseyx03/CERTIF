@@ -512,7 +512,7 @@
                                         "type": "string"
                                     },
                                     "picture": {
-                                        "type": "string"
+                                        "type": "file"
                                     },
                                     "user_id": {
                                         "type": "string"
