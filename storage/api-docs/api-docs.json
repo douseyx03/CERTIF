@@ -25,11 +25,11 @@
     "paths": {
         "/api/refresh": {
             "post": {
-                "summary": "RefreshToken",
+                "summary": "Actualiser le JWToken",
                 "description": "",
                 "responses": {
                     "201": {
-                        "description": "Created successfully",
+                        "description": "Le token a été rafraichit avec succes",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -38,7 +38,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": " Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -47,7 +47,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -56,7 +56,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": " Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -83,7 +83,7 @@
                 "description": "",
                 "responses": {
                     "201": {
-                        "description": "Created successfully",
+                        "description": "La requête a été traitée avec succes, deconnexion effectuee avec succes",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -92,7 +92,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": " Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -101,7 +101,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -110,7 +110,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -127,11 +127,11 @@
         },
         "/api/login": {
             "post": {
-                "summary": "Connexion user simple",
+                "summary": "Connexion ",
                 "description": "",
                 "responses": {
                     "201": {
-                        "description": "Created successfully",
+                        "description": " La requête a été traitée avec succès, connexion effectuee avec succes",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -140,7 +140,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -149,7 +149,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -158,7 +158,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -186,8 +186,8 @@
                                 }
                             },
                             "example": {
-                                "email": "",
-                                "password": ""
+                                "email": "dousey2003@gmail.com",
+                                "password": "********"
                             }
                         }
                     }
@@ -200,7 +200,7 @@
                 "description": "",
                 "responses": {
                     "201": {
-                        "description": "Created successfully",
+                        "description": " la requête a été traitée avec succès, inscription effectuer",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -209,7 +209,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": " Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -218,7 +218,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -227,7 +227,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -277,11 +277,11 @@
         },
         "/api/updatespecificfield/{field}": {
             "put": {
-                "summary": "ModifierDomaine",
+                "summary": "Modifier un domaine",
                 "description": "",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": " la requête a été traitée avec succès, modification effectuée",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -290,7 +290,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "la ressource demandée n'a pas été trouvée sur le serveur, le domaine que vous chercher à modifier n'existe pas ",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -299,7 +299,7 @@
                         }
                     },
                     "500": {
-                        "description": "Internal Server Error",
+                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès, Veuillez réessayer",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -331,10 +331,10 @@
                                         "type": "string"
                                     },
                                     "picture": {
-                                        "type": "string"
+                                        "type": "file"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -355,7 +355,7 @@
                 "description": "",
                 "responses": {
                     "204": {
-                        "description": "Deleted successfully",
+                        "description": "la requête a été traitée avec succès, suppression effectuée",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -364,7 +364,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -373,7 +373,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -382,7 +382,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": " la ressource demandée n'a pas été trouvée sur le serveur",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -409,16 +409,25 @@
                 "description": "",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
-                                "example": ""
+                                "example": {
+                                    "id": 1,
+                                    "fieldname": "Test Field",
+                                    "description": "Test Description",
+                                    "picture": "202402011056test_picture.jpg",
+                                    "is_archived": 0,
+                                    "user_id": 5,
+                                    "created_at": "2024-02-01T10:56:33.000000Z",
+                                    "updated_at": "2024-02-01T10:56:33.000000Z"
+                                }
                             }
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": " la ressource demandée n'a pas été trouvée sur le serveur. ",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -427,7 +436,7 @@
                         }
                     },
                     "500": {
-                        "description": "Internal Server Error",
+                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès, Veuillez réessayer",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -455,11 +464,11 @@
         },
         "/api/addfield": {
             "post": {
-                "summary": "AjouterDomaine",
+                "summary": "Ajouter un Domaine",
                 "description": "",
                 "responses": {
                     "201": {
-                        "description": "Created successfully",
+                        "description": "la requête a été traitée avec succès,domaine créé",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -468,7 +477,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": " Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -477,7 +486,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -486,7 +495,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -515,7 +524,7 @@
                                         "type": "file"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -536,7 +545,7 @@
                 "description": "",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": " la requête a été traitée avec succès",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -545,7 +554,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": " la ressource demandée n'a pas été trouvée sur le serveur.",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -554,7 +563,7 @@
                         }
                     },
                     "500": {
-                        "description": "Internal Server Error",
+                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès, Veuillez réessayer",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -575,7 +584,7 @@
                 "description": "",
                 "responses": {
                     "204": {
-                        "description": "Deleted successfully",
+                        "description": " la requête a été traitée avec succès",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -584,7 +593,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -593,7 +602,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -602,7 +611,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -640,7 +649,7 @@
                 "description": "",
                 "responses": {
                     "201": {
-                        "description": "Created successfully",
+                        "description": " la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -649,7 +658,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -658,7 +667,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -667,7 +676,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -693,23 +702,17 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "forum_id": {
-                                        "type": "string"
-                                    },
-                                    "": {
-                                        "type": "string"
-                                    }
-                                }
+                                        "type": "integer"
+                                    }                                }
                             },
                             "example": {
                                 "forumname": "",
                                 "description": "",
                                 "user_id": "",
-                                "forum_id": "",
-                                "": ""
-                            }
+                                "forum_id": ""                            }
                         }
                     }
                 }
@@ -721,7 +724,7 @@
                 "description": "",
                 "responses": {
                     "201": {
-                        "description": "Created successfully",
+                        "description": " la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -730,7 +733,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -739,7 +742,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -748,7 +751,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -786,7 +789,7 @@
                 "description": "",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -795,7 +798,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -804,7 +807,7 @@
                         }
                     },
                     "500": {
-                        "description": "Internal Server Error",
+                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -831,7 +834,7 @@
                 "description": "",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -840,7 +843,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -849,7 +852,7 @@
                         }
                     },
                     "500": {
-                        "description": "Internal Server Error",
+                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -876,7 +879,7 @@
                 "description": "",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -885,7 +888,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -894,7 +897,7 @@
                         }
                     },
                     "500": {
-                        "description": "Internal Server Error",
+                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -915,7 +918,7 @@
                 "description": "",
                 "responses": {
                     "201": {
-                        "description": "Created successfully",
+                        "description": " la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -924,7 +927,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -933,7 +936,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -942,7 +945,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -968,10 +971,10 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "forum_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -992,7 +995,7 @@
                 "description": "",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1001,7 +1004,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1010,7 +1013,7 @@
                         }
                     },
                     "500": {
-                        "description": "Internal Server Error",
+                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1042,7 +1045,7 @@
                 "description": "",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1051,7 +1054,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1060,7 +1063,7 @@
                         }
                     },
                     "500": {
-                        "description": "Internal Server Error",
+                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1072,7 +1075,33 @@
                 "tags": [
                     "Message"
                 ],
-                "parameters": []
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "message_content": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "topic_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "message_content": "",
+                                "user_id": "",
+                                "topic_id": ""
+                            }
+                        }
+                    }
+                }
+
             }
         },
         "/api/deletespecificmessage/{message}": {
@@ -1081,7 +1110,7 @@
                 "description": "",
                 "responses": {
                     "204": {
-                        "description": "Deleted successfully",
+                        "description": "  la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1090,7 +1119,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1099,7 +1128,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1108,7 +1137,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1140,7 +1169,7 @@
                 "description": "",
                 "responses": {
                     "201": {
-                        "description": "Created successfully",
+                        "description": " la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1149,7 +1178,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1158,7 +1187,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1167,7 +1196,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1190,10 +1219,10 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "topic_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -1213,7 +1242,7 @@
                 "description": "",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1222,7 +1251,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1231,7 +1260,7 @@
                         }
                     },
                     "500": {
-                        "description": "Internal Server Error",
+                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1260,10 +1289,10 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "message_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -1283,7 +1312,7 @@
                 "description": "",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1292,7 +1321,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1301,7 +1330,7 @@
                         }
                     },
                     "500": {
-                        "description": "Internal Server Error",
+                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1331,7 +1360,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1340,7 +1369,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1349,7 +1378,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1376,7 +1405,7 @@
                 "description": "",
                 "responses": {
                     "201": {
-                        "description": "Created successfully",
+                        "description": " la requête a été traitée avec succès,",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1385,7 +1414,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1394,7 +1423,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1403,7 +1432,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1426,10 +1455,10 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "message_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
