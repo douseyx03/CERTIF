@@ -17,7 +17,16 @@ class TopicFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'content' => $this->faker->paragraph,
+            'message_received' => $this->faker->numberBetween(0, 100),
+            'user_id' => function () {
+                return \App\Models\User::factory();
+            },
+            'forum_id' => function () {
+                return \App\Models\Forum::factory();
+            },
+            'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'updated_at' => $this->faker->dateTimeBetween('-1 year', 'now')
         ];
     }
 }

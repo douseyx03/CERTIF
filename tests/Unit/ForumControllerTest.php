@@ -3,58 +3,60 @@
 namespace Tests\Unit;
 
 use App\Http\Controllers\ForumController;
-use App\Http\Requests\StoreForumRequest;
-use App\Models\Forum;
 use App\Models\User;
-use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
-use Illuminate\Foundation\Testing\Concerns\InteractsWithLog;
+use App\Models\Forum;
+use Illuminate\Database\Eloquent\Factories\Factory as FactoriesFactory;
 use Tests\TestCase;
+use Illuminate\Http\UploadedFile;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
 
 class ForumControllerTest extends TestCase
 {
-    public function test_forum_creation_success(): void
+    /**
+     * A basic unit test example.
+     */
+    public function test_example(): void
     {
-        $user = User::factory()->create();
-        $token = JWTAuth::fromUser($user);
-        $this->withHeader('Authorization', 'Bearer ' . $token);
-    
-        // Arrange
-        $request = new StoreForumRequest();
-        $request->merge([
-            'forumname' => 'Test Forum',
-            'description' => 'This is a test forum',
-            'field_id' => 1
-        ]);
-        
-        // // Create a test user
-        // $user = User::factory()->create();
-        
-        // // Use actingAs to authenticate the test user
-        // $request = $this->actingAs($user);
-        // $token = JWTAuth::fromUser($user);
-        // $this->withHeader('Authorization', 'Bearer ' . $token);
-        $response = $this->post('/api/addfield', $request->all());
-        $response -> assertStatus(201)->assertJson(['message' => 'Votre domaine a bien été créé.']);
-      
+        $this->assertTrue(true);
     }
 
-        // Forum creation is logged
-// public function test_forum_creation_logging()
-// {
-//     // Arrange
-//     $request = new StoreForumRequest();
-//     $request->merge([
-//         'forumname' => 'Test Forum',
-//         'description' => 'This is a test forum',
-//         'field_id' => 1
-//     ]);
+    public function test_store_method_creates_forum()
+    {
+        $user = User::factory()->create();
+        $fieldId = 1;
+        $requestData = [
+            'forumname' => 'Test Forum',
+            'description' => 'This is a test forum',
+            'field_id' => $fieldId
+        ];
+        
+        $user = User::factory()->create();
+        
+        
+        $token = JWTAuth::fromUser($user);
+        $this->withHeader('Authorization', 'Bearer ' . $token);
+        $response = $this->post('/api/addforum', $requestData);
     
-//     // Act
-//     $this->post('/apiforums', $request->all());
+        $response->assertStatus(201)
+                 ->assertJson(['message' => 'Votre forum a bien été créé.']);
     
-//     // Assert
-//     $this->assertLogged('info', 'Forum object created with name: Test Forum');
-//     $this->assertLogged('info', 'Forum saved');
-//     $this->assertLogged('info', 'Response: Forum created with name: Test Forum');
-// }
+        $this->assertDatabaseHas('forums', [
+            'forumname' => 'Test Forum',
+            'description' => 'This is a test forum',
+            'field_id' => $fieldId,
+            'user_id' => $user->id
+        ]);
+    }
+
+    public function test_returns_json_response_with_non_archived_forums()
+    {
+        $user = User::factory()->create();
+
+        $token = JWTAuth::fromUser($user);
+        $this->withHeader('Authorization', 'Bearer ' . $token);
+        $response = $this->get('/api/displayforum');
+        $response->assertStatus(200);
+}
 }

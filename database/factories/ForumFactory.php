@@ -16,8 +16,15 @@ class ForumFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            //
-        ];
+       return [
+           'forumname' => $this->faker->word,
+           'description' => $this->faker->sentence,
+           'field_id' => function () {
+               return \App\Models\Field::factory()->create()->id;
+           },
+           'user_id' => function () {
+               return \App\Models\User::factory()->create()->id;
+           },
+       ];
     }
 }
