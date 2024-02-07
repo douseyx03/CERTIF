@@ -30,6 +30,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+
+    Route::post('profile', 'profile');
+    Route::post('updateprofile', 'update_profile');
 });
 
 Route::middleware(['isAdmin', 'auth:api'])->group(function () {

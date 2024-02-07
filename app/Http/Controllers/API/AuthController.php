@@ -86,4 +86,30 @@ class AuthController extends Controller
             ]
         ]);
     }
+
+    public function profile()
+    {
+        return response()->json([
+            'message' => 'Les infos de votre profile sont :',
+            'user' => Auth::user(),
+        ],200);
+    }
+
+    public function update_profile(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+        ]);
+        $user->User::update([
+            'firstname' => request('firstname'),
+            'lastname' => request('lastname'),
+            'email' => request('email'),
+        ]);
+        return response()->json([
+            'user' => Auth::user(),
+        ],200);
+    }
 }
