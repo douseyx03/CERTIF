@@ -64,6 +64,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/displayreply', [ReplyController::class, 'index']);
     Route::post('/deletespecificreply/{reply}', [ReplyController::class, 'destroy']);
     Route::post('/updatespecificreply/{reply}', [ReplyController::class, 'update']);
+    Route::get('/displayrepliesformessage/{message}', [ReplyController::class,'getRepliesByMessageId']);
 });
 
 Route::post('/displayfield', [FieldController::class, 'index']);

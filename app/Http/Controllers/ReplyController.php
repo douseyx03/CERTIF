@@ -190,4 +190,13 @@ class ReplyController extends Controller
         
         $reply->delete();
     }
+
+    public function getRepliesByMessageId($messageId)
+    {
+       $replies = Reply::where('message_id', $messageId)
+                   ->latest('created_at')
+                   ->pluck('id', 'reply_content', 'user_id', 'created_at');
+               
+       return response()->json(['réponses' => $replies], 200);
+    }
 }
