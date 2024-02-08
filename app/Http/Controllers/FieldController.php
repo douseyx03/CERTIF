@@ -48,7 +48,6 @@ class FieldController extends Controller
             $file-> move(public_path('pictures/field'), $filename);
             $field['picture']= $filename;
         }
-        //  dd($field);
         $field->save();
         return response()->json(['message' => 'Votre domaine a bien été créé.'], 201);
     }

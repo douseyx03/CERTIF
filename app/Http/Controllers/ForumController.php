@@ -81,7 +81,29 @@ class ForumController extends Controller
      */
     public function update(UpdateForumRequest $request, Forum $forum)
     {
-        //
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            
+            if (!$user) {
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
+            
+            Log::info('User authenticated: ' . $user->id);
+            
+            if ($user->id !== $forum->user_id) {
+                return response()->json(['message' => 'Ce domaine n\'a pas été créé par vous. Ce domaine ne vous appartient pas.'], 403);
+            }
+            
+            $data = $request->only(['forumname', 'description']);
+    
+            
+            $forum->update($data);
+            
+            return response()->json($forum);
+        } catch (\Exception $e) {
+             Log::error('Error updating field: ' . $e->getMessage());
+            return response()->json(['message' => 'An error occurred while updating the field.'], 500);
+        }
     }
 
     /**

@@ -102,33 +102,47 @@ class AuthController extends Controller
 
  public function updateProfile(Request $request): JsonResponse
     {
-     $user = Auth::user();
- 
-     $validatedData = $request->validate([
-        'firstname' => 'string|nullable',
-        'lastname' => 'string|nullable',
-        'email' => 'email|nullable',
-        'password' => 'string|min:6|nullable|confirmed',
-    ]);
-    
-    if ($request->filled('password') && $request->input('password') !== $request->input('password_confirmation')) {
-        return response()->json([
-            'message' => 'Le mot de passe et la confirmation ne correspondent pas.',
-        ], 422);
+        
+            $user = Auth::user();
+        
+            $validatedData = $request->validate([
+                'firstname' => 'string|nullable',
+                'lastname' => 'string|nullable',
+                'image' => 'image||max:2048|nullable',
+                'email' => 'email|nullable',
+                'password' => 'string|min:6|nullable|confirmed',
+            ]);
+            
+            if($request->file('image')){
+                        $file= $request->file('image');
+                        $filename= date('YmdHi').$file->getClientOriginalName();
+                        $file-> move(public_path('pictures/UserImage'), $filename);
+                        $user['image']= $filename;
+                    }
+            if ($request->filled('password') && $request->input('password') !== $request->input('password_confirmation')) {
+                return response()->json([
+                    'message' => 'Le mot de passe et la confirmation ne correspondent pas.',
+                ], 422);
+            }
+
+        
+            try {
+                $user->update($validatedData);
+                return response()->json([
+                    'message' => 'Modification de vos infos effectuée avec succès👏🏽',
+                    'user' => Auth::user(),
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'message' => 'Une erreur s\'est produite lors de la modification de vos informations. Veuillez reessayer.',
+                    'error' => $e->getMessage(),
+                ], 500);
+            }
     }
 
- 
-     try {
-         $user->update($validatedData);
-         return response()->json([
-             'message' => 'Modification de vos infos effectuée avec succès👏🏽',
-             'user' => Auth::user(),
-         ], 200);
-     } catch (\Exception $e) {
-         return response()->json([
-             'message' => 'Une erreur s\'est produite lors de la modification de vos informations. Veuillez reessayer.',
-             'error' => $e->getMessage(),
-         ], 500);
-     }
+    public function getAllUsers(): JsonResponse
+    {
+        $users = User::all();
+        return response()->json($users);
     }
 }

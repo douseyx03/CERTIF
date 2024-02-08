@@ -36,6 +36,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware(['isAdmin', 'auth:api'])->group(function () {
+    Route::get('/getAllUsers',[AuthController::class, 'getAllUsers']);
 
     Route::post('/addfield', [FieldController::class, 'Store']);
     Route::post('/updatespecificfield/{field}', [FieldController::class, 'update']);
