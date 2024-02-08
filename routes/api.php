@@ -30,6 +30,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+
+    Route::post('profile', 'profile');
+    Route::post('updateprofile', 'updateProfile');
 });
 
 Route::middleware(['isAdmin', 'auth:api'])->group(function () {
@@ -59,9 +62,10 @@ Route::middleware('auth:api')->group(function () {
     
 
     Route::post('/sendreply', [ReplyController::class, 'store']);
-    Route::get('/displayreply', [ReplyController::class, 'index']);
-    Route::delete('/deletespecificreply/{reply}', [ReplyController::class, 'destroy']);
-    Route::put('/updatespecificreply/{reply}', [ReplyController::class, 'update']);
+    Route::post('/displayreply', [ReplyController::class, 'index']);
+    Route::post('/deletespecificreply/{reply}', [ReplyController::class, 'destroy']);
+    Route::post('/updatespecificreply/{reply}', [ReplyController::class, 'update']);
+    Route::get('/displayrepliesformessage/{message}', [ReplyController::class,'getRepliesByMessageId']);
 });
 
 Route::get('/displayfield', [FieldController::class, 'index']);
