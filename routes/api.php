@@ -32,7 +32,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 
     Route::post('profile', 'profile');
-    Route::post('updateprofile', 'update_profile');
+    Route::post('updateprofile', 'updateProfile');
 });
 
 Route::middleware(['isAdmin', 'auth:api'])->group(function () {

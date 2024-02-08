@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
@@ -95,21 +96,35 @@ class AuthController extends Controller
         ],200);
     }
 
-    public function update_profile(Request $request)
+ public function updateProfile(Request $request): JsonResponse
     {
-        $user = Auth::user();
-        $request->validate([
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-        ]);
-        $user->User::update([
-            'firstname' => request('firstname'),
-            'lastname' => request('lastname'),
-            'email' => request('email'),
-        ]);
+     $user = Auth::user();
+ 
+     $validatedData = $request->validate([
+        'firstname' => 'string|nullable',
+        'lastname' => 'string|nullable',
+        'email' => 'email|nullable',
+        'password' => 'string|min:6|nullable|confirmed',
+    ]);
+    
+    if ($request->filled('password') && $request->input('password') !== $request->input('password_confirmation')) {
         return response()->json([
-            'user' => Auth::user(),
-        ],200);
+            'message' => 'Le mot de passe et la confirmation ne correspondent pas.',
+        ], 422);
+    }
+
+ 
+     try {
+         $user->update($validatedData);
+         return response()->json([
+             'message' => 'Modification de vos infos effectuée avec succès👏🏽',
+             'user' => Auth::user(),
+         ], 200);
+     } catch (\Exception $e) {
+         return response()->json([
+             'message' => 'Une erreur s\'est produite lors de la modification de vos informations. Veuillez reessayer.',
+             'error' => $e->getMessage(),
+         ], 500);
+     }
     }
 }
