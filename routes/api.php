@@ -30,14 +30,21 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+
+    Route::post('profile', 'profile');
+    Route::post('updateprofile', 'updateProfile');
 });
 
 Route::middleware(['isAdmin', 'auth:api'])->group(function () {
-    
+    Route::get('/getAllUsers',[AuthController::class, 'getAllUsers']);
+
     Route::post('/addfield', [FieldController::class, 'Store']);
+    Route::post('/updatespecificfield/{field}', [FieldController::class, 'update']);
+    Route::post('/deletefield/{field}', [FieldController::class, 'destroy']);
     Route::delete('/deletefield/{field}',[FieldController::class, 'destroy']);
 
     Route::post('/addforum', [ForumController::class, 'Store']);
+    Route::post('/deleteforum/{forum}', [ForumController::class, 'destroy']);
     Route::delete('/deleteforum/{forum}',[ForumController::class, 'destroy']);
 
 });
@@ -57,6 +64,11 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/deletespecificmessage/{message}',[MessageController::class,'destroy']);
     Route::put('/updatespecificmessage/{message}',[MessageController::class,'update']);
 
+    Route::post('/sendreply', [ReplyController::class, 'store']);
+    Route::post('/displayreply', [ReplyController::class, 'index']);
+    Route::post('/deletespecificreply/{reply}', [ReplyController::class, 'destroy']);
+    Route::post('/updatespecificreply/{reply}', [ReplyController::class, 'update']);
+    Route::get('/displayrepliesformessage/{message}', [ReplyController::class,'getRepliesByMessageId']);
     Route::post('/sendreply',[ReplyController::class,'store']);
     Route::get('/displayreply',[ReplyController::class,'index']);
     Route::delete('/deletespecificreply/{reply}',[ReplyController::class,'destroy']);
