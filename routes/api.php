@@ -43,6 +43,7 @@ Route::middleware(['isAdmin', 'auth:api'])->group(function () {
     Route::post('/deletefield/{field}', [FieldController::class, 'destroy']);
 
     Route::post('/addforum', [ForumController::class, 'Store']);
+    Route::post('/updateforum/{forum}', [ForumController::class, 'update']);
     Route::post('/deleteforum/{forum}', [ForumController::class, 'destroy']);
 });
 

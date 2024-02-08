@@ -91,7 +91,7 @@ class ForumController extends Controller
             Log::info('User authenticated: ' . $user->id);
             
             if ($user->id !== $forum->user_id) {
-                return response()->json(['message' => 'Ce domaine n\'a pas été créé par vous. Ce domaine ne vous appartient pas.'], 403);
+                return response()->json(['message' => 'Ce forum n\'a pas été créé par vous. Ce domaine ne vous appartient pas.'], 403);
             }
             
             $data = $request->only(['forumname', 'description']);
@@ -102,7 +102,8 @@ class ForumController extends Controller
             return response()->json($forum);
         } catch (\Exception $e) {
              Log::error('Error updating field: ' . $e->getMessage());
-            return response()->json(['message' => 'An error occurred while updating the field.'], 500);
+            return response()->json(['message' => 'An error occurred while updating the field.',
+                'error' => $e->getMessage()], 500);
         }
     }
 
