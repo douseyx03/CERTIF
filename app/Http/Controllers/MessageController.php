@@ -34,7 +34,7 @@ class MessageController extends Controller
                 $topicSpecificMessages[$topicId] = $topicMessages;
             }
             
-            return response()->json($topicSpecificMessages);
+            return response()->json($topicSpecificMessages,200);
         } catch (\Exception $e) {
 
             Log::error('An error occurred: ' . $e->getMessage());

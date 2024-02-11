@@ -2,8 +2,8 @@
     "openapi": "3.0.0",
     "info": {
         "title": "PENC API",
-        "description": "L'API DE L'APPLICATION PENC",
-        "version": "1.4"
+        "description": "API RESTFULL DE L'APPLICATION WEB PENC ",
+        "version": "3.0.1"
     },
     "security": [
         {
@@ -23,9 +23,9 @@
         "multipart/form-data"
     ],
     "paths": {
-        "/api/refresh": {
+        "/api/register": {
             "post": {
-                "summary": "RefreshToken",
+                "summary": "Inscription",
                 "description": "",
                 "responses": {
                     "201": {
@@ -66,15 +66,111 @@
                     }
                 },
                 "tags": [
-                    "JWTAuthentification"
+                    "Utilisateur"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "first": {
+                                        "type": "string"
+                                    },
+                                    "lastname": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "first": "",
+                                "lastname": "",
+                                "email": "",
+                                "password": "",
+                                "password_confirmation": ""
+                            }
+                        }
                     }
-                ]
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "summary": "Connexion",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Utilisateur"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "email": "",
+                                "password": ""
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/logout": {
@@ -120,14 +216,14 @@
                     }
                 },
                 "tags": [
-                    "JWTAuthentification"
+                    "Utilisateur"
                 ],
                 "parameters": []
             }
         },
-        "/api/login": {
+        "/api/refresh": {
             "post": {
-                "summary": "Connexion user simple",
+                "summary": "Refresh token",
                 "description": "",
                 "responses": {
                     "201": {
@@ -168,39 +264,18 @@
                     }
                 },
                 "tags": [
-                    "JWTAuthentification"
+                    "Utilisateur"
                 ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "email": "",
-                                "password": ""
-                            }
-                        }
-                    }
-                }
+                "parameters": []
             }
         },
-        "/api/register": {
-            "post": {
-                "summary": "Inscription",
+        "/api/profile": {
+            "get": {
+                "summary": "Profile",
                 "description": "",
                 "responses": {
-                    "201": {
-                        "description": "Created successfully",
+                    "200": {
+                        "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -208,8 +283,8 @@
                             }
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
+                    "404": {
+                        "description": "Not Found",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -217,17 +292,8 @@
                             }
                         }
                     },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
+                    "500": {
+                        "description": "Internal Server Error",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -237,12 +303,90 @@
                     }
                 },
                 "tags": [
-                    "JWTAuthentification"
+                    "Utilisateur"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/getAllUsers": {
+            "get": {
+                "summary": "Liste de utilisateurs",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Utilisateur"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/updateprofile": {
+            "put": {
+                "summary": "Mise à jour profile",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Utilisateur"
                 ],
                 "parameters": [],
                 "requestBody": {
                     "content": {
-                        "multipart/form-data": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -251,6 +395,9 @@
                                     },
                                     "lastname": {
                                         "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "file"
                                     },
                                     "email": {
                                         "type": "string"
@@ -264,190 +411,15 @@
                                 }
                             },
                             "example": {
-                                "firstname": "Rokhaya",
-                                "lastname": "Ndiaye",
-                                "email": "ndeye@gmail.com",
-                                "password": "password",
-                                "password_confirmation": "password"
+                                "firstname": "",
+                                "lastname": "",
+                                "image": {
+                                    "type": "file"                                
+                                },
+                                "email": "",
+                                "password": "",
+                                "password_confirmation": ""
                             }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/updatespecificfield/{field}": {
-            "put": {
-                "summary": "ModifierDomaine",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Domaine"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "field",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "fieldname": {
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "type": "string"
-                                    },
-                                    "picture": {
-                                        "type": "string"
-                                    },
-                                    "user_id": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "fieldname": "",
-                                "description": "",
-                                "picture": "",
-                                "user_id": ""
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/deletefield/{field}": {
-            "delete": {
-                "summary": "SupprimerDomaine",
-                "description": "",
-                "responses": {
-                    "204": {
-                        "description": "Deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Domaine"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "field",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/displayfield": {
-            "get": {
-                "summary": "AfficherDomaine",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Domaine"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {}
-                            },
-                            "example": {}
                         }
                     }
                 }
@@ -512,7 +484,7 @@
                                         "type": "string"
                                     },
                                     "picture": {
-                                        "type": "string"
+                                        "type": "file"
                                     },
                                     "user_id": {
                                         "type": "string"
@@ -522,7 +494,9 @@
                             "example": {
                                 "fieldname": "",
                                 "description": "",
-                                "picture": "",
+                                "picture": {
+                                    "type": "file"
+                                },
                                 "user_id": ""
                             }
                         }
@@ -530,9 +504,9 @@
                 }
             }
         },
-        "/api/displayforum": {
+        "/api/displayfield": {
             "get": {
-                "summary": "AfficherForum",
+                "summary": "AfficherDomaine",
                 "description": "",
                 "responses": {
                     "200": {
@@ -564,14 +538,91 @@
                     }
                 },
                 "tags": [
-                    "Forum"
+                    "Domaine"
                 ],
                 "parameters": []
             }
         },
-        "/api/deleteforum/{forum}": {
+        "/api/updatespecificfield/{field}": {
+            "put": {
+                "summary": "ModifierDomaine",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Domaine"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "field",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "fieldname": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "picture": {
+                                        "type": "file"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "fieldname": "",
+                                "description": "",
+                                "picture": {
+                                    "type": "string",
+                                    "format": "binary"
+                                },
+                                "user_id": ""
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/deletefield/{field}": {
             "delete": {
-                "summary": "SupprimerForum",
+                "summary": "SupprimerDomaine",
                 "description": "",
                 "responses": {
                     "204": {
@@ -612,26 +663,15 @@
                     }
                 },
                 "tags": [
-                    "Forum"
+                    "Domaine"
                 ],
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "forum",
+                        "name": "field",
                         "type": "string"
                     }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {}
-                            },
-                            "example": {}
-                        }
-                    }
-                }
+                ]
             }
         },
         "/api/addforum": {
@@ -692,36 +732,32 @@
                                     "description": {
                                         "type": "string"
                                     },
+                                    "field_id": {
+                                        "type": "integer"
+                                    },
                                     "user_id": {
-                                        "type": "string"
-                                    },
-                                    "forum_id": {
-                                        "type": "string"
-                                    },
-                                    "": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
                             "example": {
                                 "forumname": "",
                                 "description": "",
-                                "user_id": "",
-                                "forum_id": "",
-                                "": ""
+                                "field_id": "",
+                                "user_id": ""
                             }
                         }
                     }
                 }
             }
         },
-        "/api/deletespecifictopic/{topic}": {
-            "post": {
-                "summary": "SupprimerSujetSpecific",
+        "/api/displayforum": {
+            "get": {
+                "summary": "AfficherForum",
                 "description": "",
                 "responses": {
-                    "201": {
-                        "description": "Created successfully",
+                    "200": {
+                        "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -729,8 +765,112 @@
                             }
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Forum"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/updatespecificforum/{forum}": {
+            "put": {
+                "summary": "ModifierForum",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Forum"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "forum",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "forumname": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "field_id": {
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "forumname": "",
+                                "description": "",
+                                "field_id": "",
+                                "user_id": ""
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/deleteforum/{forum}": {
+            "delete": {
+                "summary": "SupprimerForum",
+                "description": "",
+                "responses": {
+                    "204": {
+                        "description": "Deleted successfully",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -755,44 +895,6 @@
                                 "example": ""
                             }
                         }
-                    }
-                },
-                "tags": [
-                    "Sujet"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "topic",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {}
-                            },
-                            "example": {}
-                        }
-                    }
-                }
-            }
-        },
-        "/api/updatespecifictopic/{topic}": {
-            "put": {
-                "summary": "ModifierSujetSpecific",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
                     },
                     "404": {
                         "description": "Not Found",
@@ -802,111 +904,18 @@
                                 "example": ""
                             }
                         }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
                     }
                 },
                 "tags": [
-                    "Sujet"
+                    "Forum"
                 ],
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "topic",
+                        "name": "forum",
                         "type": "string"
                     }
                 ]
-            }
-        },
-        "/api/displayspecifictopic/{topic}": {
-            "get": {
-                "summary": "AfficherSujetSpecific",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Sujet"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "topic",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/displaytopic": {
-            "get": {
-                "summary": "AfficherSujets",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Sujet"
-                ],
-                "parameters": []
             }
         },
         "/api/addtopic": {
@@ -968,10 +977,10 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "forum_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -986,9 +995,9 @@
                 }
             }
         },
-        "/api/updatespecificmessage/{message}": {
-            "put": {
-                "summary": "ModifierMessage",
+        "/api/displaytopic": {
+            "get": {
+                "summary": "AfficherSujets",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1020,25 +1029,59 @@
                     }
                 },
                 "tags": [
-                    "Message"
+                    "Sujet"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/displayspecifictopic/{topic}": {
+            "get": {
+                "summary": "AfficherSujetSpecific",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "Requete executé avec succes",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Sujet"
                 ],
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "message",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "",
+                        "name": "topic",
                         "type": "string"
                     }
                 ]
             }
         },
-        "/api/displaymessage": {
-            "get": {
-                "summary": "AfficherMessage",
+        "/api/updatespecifictopic/{topic}": {
+            "put": {
+                "summary": "ModifierSujetSpecific",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1070,14 +1113,49 @@
                     }
                 },
                 "tags": [
-                    "Message"
+                    "Sujet"
                 ],
-                "parameters": []
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "topic",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "content": {
+                                        "type": "string"
+                                    },
+                                    "message_received": {
+                                        "type": "integer"
+                                    },
+                                    "user_di": {
+                                        "type": "integer"
+                                    },
+                                    "forum_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "content": "",
+                                "message_received": "",
+                                "user_di": "",
+                                "forum_id": ""
+                            }
+                        }
+                    }
+                }
             }
         },
-        "/api/deletespecificmessage/{message}": {
+        "/api/deletespecifictopic/{topic}": {
             "delete": {
-                "summary": "SupprimerMessage",
+                "summary": "SupprimerSujetSpecific",
                 "description": "",
                 "responses": {
                     "204": {
@@ -1118,23 +1196,18 @@
                     }
                 },
                 "tags": [
-                    "Message"
+                    "Sujet"
                 ],
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "message",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "message",
+                        "name": "topic",
                         "type": "string"
                     }
                 ]
             }
         },
-        "/api/addmessage": {
+        "/api/sendmessage": {
             "post": {
                 "summary": "AjouterMessage",
                 "description": "",
@@ -1190,10 +1263,10 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "topic_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -1205,6 +1278,327 @@
                         }
                     }
                 }
+            }
+        },
+        "/api/displaymessage": {
+            "get": {
+                "summary": "AfficherMessage",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Message"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/updatespecificmessage/{message}": {
+            "put": {
+                "summary": "ModifierMessage",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Message"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "message",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "message_content": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "topic_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "message_content": "",
+                                "user_id": "",
+                                "topic_id": ""
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/deletespecificmessage/{message}": {
+            "delete": {
+                "summary": "SupprimerMessage",
+                "description": "",
+                "responses": {
+                    "204": {
+                        "description": "Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Message"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "message",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/sendreply": {
+            "post": {
+                "summary": "AjouterReponse",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Reponse"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "reply_content": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "message_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "reply_content": "",
+                                "user_id": "",
+                                "message_id": ""
+                            }
+                        }
+                    }
+                }
+
+            }
+        },
+        "/api/displayreply": {
+            "get": {
+                "summary": "AfficherReponse",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Reponse"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/displayrepliesformessage/{message}": {
+            "get": {
+                "summary": "AfficherReponsePourUnMessage",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Reponse"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "message",
+                        "type": "string"
+                    }
+                ]
             }
         },
         "/api/updatespecificreply/{reply}": {
@@ -1260,10 +1654,10 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "message_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -1277,46 +1671,7 @@
                 }
             }
         },
-        "/api/displayreply": {
-            "get": {
-                "summary": "AfficherReponse",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Reponse"
-                ],
-                "parameters": []
-            }
-        },
-        "/api//deletespecificreply/{reply}": {
+        "/api/deletespecificreply/{reply}": {
             "delete": {
                 "summary": "SupprimerReponse",
                 "description": "",
@@ -1368,79 +1723,6 @@
                         "type": "string"
                     }
                 ]
-            }
-        },
-        "/api/sendreply": {
-            "post": {
-                "summary": "AjouterReponse",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Reponse"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "reply_content": {
-                                        "type": "string"
-                                    },
-                                    "user_id": {
-                                        "type": "string"
-                                    },
-                                    "message_id": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "reply_content": "",
-                                "user_id": "",
-                                "message_id": ""
-                            }
-                        }
-                    }
-                }
             }
         }
     }
