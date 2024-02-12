@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
     # Mysql database container
     db:
@@ -22,27 +23,27 @@ services:
         depends_on:
             - db
         ports:
-            - 8010:80
+            - 8010:80  # Maps host port 8010 to container port 80
         environment:
-            PMA_HOST: db
+            PMA_HOST: db  # Specifies the host for the phpmyadmin container
         networks:
-            - penc
+            - penc  # Attaches the phpmyadmin container to the penc network
 
+    # www container
     www:
         build: docker/php
         container_name: penc_certif
         ports:
-            - "8002:80"
+            - "8002:80"  # Maps host port 8002 to container port 80
         volumes:
-            - ./docker/php/vhosts:/etc/apache2/sites-enabled
-            - ./:/var/www/html
+            - ./docker/php/vhosts:/etc/apache2/sites-enabled  # Mounts the vhosts directory to the container
+            - ./:/var/www/html  # Mounts the current directory to the container's working directory
         restart: always
         networks:
-            - penc
+            - penc  # Attaches the www container to the penc network
 
 networks:
-    penc:
-
+    penc:  # Defines a network named penc
 
 volumes:
-    db-data:
+    db-data:  # Defines a volume named db-data
