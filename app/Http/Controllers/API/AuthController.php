@@ -109,10 +109,9 @@ class AuthController extends Controller
                 'firstname' => 'string|nullable',
                 'lastname' => 'string|nullable',
                 'image' => 'image||max:2048|nullable',
-                'email' => 'email|nullable',
+                'email' => 'email',
                 'password' => 'string|min:6|nullable|confirmed',
             ]);
-            
             if($request->file('image')){
                         $file= $request->file('image');
                         $filename= date('YmdHi').$file->getClientOriginalName();
@@ -127,7 +126,13 @@ class AuthController extends Controller
 
         
             try {
-                $user->update($validatedData);
+                $user->firstname = $request->input('firstname');
+                $user->lastname = $request->input('lastname');
+                $user->email = $request->input('email');
+                $user->password = Hash::make($request->input('password'));
+
+                $user->image = 'pictures/UserImage/' . $filename; // Set the image URL
+                $user->save();
                 return response()->json([
                     'message' => 'Modification de vos infos effectuée avec succès👏🏽',
                     'user' => Auth::user(),
