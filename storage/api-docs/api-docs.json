@@ -974,7 +974,7 @@
                                         "type": "string"
                                     },
                                     "message_received": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "user_id": {
                                         "type": "integer"
