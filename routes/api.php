@@ -39,7 +39,7 @@ Route::middleware(['isAdmin', 'auth:api'])->group(function () {
     Route::get('/getAllUsers',[AuthController::class, 'getAllUsers']);
 
     Route::post('/addfield', [FieldController::class, 'Store']);
-    Route::post('/updatespecificfield/{field}', [FieldController::class, 'update']);
+    Route::put('/updatespecificfield/{field}', [FieldController::class, 'update']);
     Route::delete('/deletefield/{field}',[FieldController::class, 'destroy']);
 
     Route::post('/addforum', [ForumController::class, 'Store']);
