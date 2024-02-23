@@ -32,7 +32,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 
     Route::get('profile', 'profile');
-    Route::put('updateprofile', 'updateProfile');
+    Route::put('updateprofile', 'updateProfile')->middleware('blocked');
 });
 
 Route::middleware(['isAdmin', 'auth:api'])->group(function () {
@@ -46,9 +46,13 @@ Route::middleware(['isAdmin', 'auth:api'])->group(function () {
     Route::put('/updatespecificforum/{forum}', [ForumController::class, 'update']);
     Route::delete('/deleteforum/{forum}',[ForumController::class, 'destroy']);
 
+    Route::patch('/blockuser/{user}', [AuthController::class,'blockUser']);
+    Route::patch('/unblockuser/{user}', [AuthController::class,'unBlockUser']);
+    Route::delete('/deleteuser/{user}', [AuthController::class,'deleteUser']);
+
 });
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware(['auth:api','blocked'])->group(function () {
 
     Route::get('/displayforum', [ForumController::class, 'show']);
 
@@ -69,7 +73,8 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/updatespecificreply/{reply}', [ReplyController::class, 'update']);
     Route::get('/displayrepliesformessage/{message}', [ReplyController::class,'getRepliesByMessageId']);
     
-    
+    Route::get('/getUsersInfos', [AuthController::class,'getUsersInfos']);
+    Route::get('/getblockedusers', [AuthController::class,'listOfBlockedUsers']);
 });
 
 Route::get('/displayfield', [FieldController::class, 'index']);

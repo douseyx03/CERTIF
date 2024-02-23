@@ -10,6 +10,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use App\Notifications\UserBlocked;
+use App\Notifications\UserDeleted;
+use App\Notifications\UserUnblocked;
+use Illuminate\Support\Facades\Log;
 use PHPOpenSourceSaver\JWTAuth\JWTAuth as JWTAuthJWTAuth;
 
 class AuthController extends Controller
@@ -94,24 +98,26 @@ class AuthController extends Controller
 
     public function profile()
     {
-     return response()->json([
+        
+        return response()->json([
          'message' => 'Les infos de votre profile sont :',
          'user' => Auth::user()->toArray(),
-     ], 200);
+        ], 200);
     }
 
- public function updateProfile(Request $request): JsonResponse
+    public function updateProfile(Request $request): JsonResponse
     {
         
             $user = Auth::user();
         
             $validatedData = $request->validate([
-                'firstname' => 'string|nullable',
+                'firstname' => 'required|string',
                 'lastname' => 'string|nullable',
                 'image' => 'image||max:2048|nullable',
                 'email' => 'email',
                 'password' => 'string|min:6|nullable|confirmed',
             ]);
+            $filename = '';
             if($request->file('image')){
                         $file= $request->file('image');
                         $filename= date('YmdHi').$file->getClientOriginalName();
@@ -150,4 +156,56 @@ class AuthController extends Controller
         $users = User::all();
         return response()->json($users);
     }
+
+    public function blockUser($id): JsonResponse
+    {
+        try {
+            $user = User::find($id);
+            if (!$user) {
+                throw new \Exception('User not found');
+            }
+        
+            $user->is_blocked = true;
+            $user->save();
+            Log::info('User ' . $user->id . ' has been blocked.'); // logging statement
+            $user->notify(new UserBlocked);
+            Log::info('User ' . $user->id . ' has been notified about being blocked.'); // logging statement
+            return response()->json(['message' => 'Utilisateur bloque avec succes'], 200);
+        } catch (\Exception $e) {
+            Log::error('Error blocking user: ' . $e->getMessage());
+            return response()->json(['message' => 'Error blocking user', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function unBlockUser($id): JsonResponse
+    {
+        $user = User::find($id);
+        $user->is_blocked = false;
+        $user->save();
+        $user->notify(new UserUnblocked);
+
+        return response()->json(['message' => 'Utilisateur debloque avec succes']);
+    }
+
+    public function deleteUser($id): JsonResponse
+    {
+        $user = User::find($id);
+        $user->delete();
+        $user->notify(new UserDeleted);
+
+        return response()->json(['message' => 'Utilisateur supprimé avec succes']);
+    }
+
+    public function getUsersInfos(): JsonResponse
+        {
+            $users = User::all(['id', 'firstname', 'lastname', 'image']);
+            return response()->json($users);
+        }
+
+    public function listOfBlockedUsers(): JsonResponse 
+    {
+        $users = User::where('is_blocked', true)->get(['id', 'firstname', 'lastname', 'image','email']);
+        return response()->json($users);
+    }
+    
 }
