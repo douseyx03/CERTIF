@@ -49,6 +49,7 @@ Route::middleware(['isAdmin', 'auth:api'])->group(function () {
     Route::patch('/blockuser/{user}', [AuthController::class,'blockUser']);
     Route::patch('/unblockuser/{user}', [AuthController::class,'unBlockUser']);
     Route::delete('/deleteuser/{user}', [AuthController::class,'deleteUser']);
+    Route::get('/getblockedusers', [AuthController::class,'listOfBlockedUsers']);
 
 });
 
@@ -74,7 +75,6 @@ Route::middleware(['auth:api','blocked'])->group(function () {
     Route::get('/displayrepliesformessage/{message}', [ReplyController::class,'getRepliesByMessageId']);
     
     Route::get('/getUsersInfos', [AuthController::class,'getUsersInfos']);
-    Route::get('/getblockedusers', [AuthController::class,'listOfBlockedUsers']);
 });
 
 Route::get('/displayfield', [FieldController::class, 'index']);
