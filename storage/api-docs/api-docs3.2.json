@@ -3,7 +3,7 @@
     "info": {
         "title": "PENC API",
         "description": "API RESTFULL DE L'APPLICATION WEB PENC",
-        "version": "3.0.3"
+        "version": "3.0.2"
     },
     "security": [
         {
@@ -293,7 +293,7 @@
                 ]
             }
         },
-        "/api/profile": {
+        "/api/profil": {
             "get": {
                 "summary": "Infos Profil Utilisateur",
                 "description": "",
@@ -473,7 +473,7 @@
                 ]
             }
         },
-        "/api/blockuser/{user}": {
+        "/api/blockuser/3": {
             "patch": {
                 "summary": "Bloquer un utilisateur",
                 "description": "",
@@ -523,7 +523,7 @@
                 ]
             }
         },
-        "/api/unblockuser/{user}": {
+        "/api/unblockuser/3": {
             "patch": {
                 "summary": "Débloquer un utilisateur",
                 "description": "",
@@ -618,7 +618,7 @@
                 ]
             }
         },
-        "/api/deleteuser/{user}": {
+        "/api/deleteuser/5": {
             "delete": {
                 "summary": "Supprimer un utilisateur",
                 "description": "",
@@ -847,11 +847,6 @@
                 ],
                 "parameters": [
                     {
-                        "in": "path",
-                        "name": "field",
-                        "type": "string"
-                    },
-                    {
                         "in": "header",
                         "name": "User-Agent",
                         "type": "string"
@@ -938,11 +933,6 @@
                     "Domaine"
                 ],
                 "parameters": [
-                    {
-                        "in": "path",
-                        "name": "field",
-                        "type": "string"
-                    },
                     {
                         "in": "header",
                         "name": "User-Agent",
@@ -1077,11 +1067,6 @@
                 ],
                 "parameters": [
                     {
-                        "in": "path",
-                        "name": "forum",
-                        "type": "string"
-                    },
-                    {
                         "in": "header",
                         "name": "User-Agent",
                         "type": "string"
@@ -1164,11 +1149,6 @@
                     "Forum"
                 ],
                 "parameters": [
-                    {
-                        "in": "path",
-                        "name": "forum",
-                        "type": "string"
-                    },
                     {
                         "in": "header",
                         "name": "User-Agent",
@@ -1392,11 +1372,6 @@
                     "Sujet"
                 ],
                 "parameters": [
-                    {
-                        "in": "path",
-                        "name": "topic",
-                        "type": "string"
-                    },
                     {
                         "in": "header",
                         "name": "User-Agent",
@@ -1654,11 +1629,6 @@
                     "Message"
                 ],
                 "parameters": [
-                    {
-                        "in": "path",
-                        "name": "message",
-                        "type": "string"
-                    },
                     {
                         "in": "header",
                         "name": "User-Agent",
@@ -1962,11 +1932,6 @@
                     "Réponse"
                 ],
                 "parameters": [
-                    {
-                        "in": "path",
-                        "name": "reply",
-                        "type": "string"
-                    },
                     {
                         "in": "header",
                         "name": "User-Agent",

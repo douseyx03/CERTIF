@@ -2,8 +2,8 @@
     "openapi": "3.0.0",
     "info": {
         "title": "PENC API",
-        "description": "API RESTFULL DE L'APPLICATION WEB PENC",
-        "version": "3.0.3"
+        "description": "API RESTFULL DE L'APPLICATION WEB PENC ",
+        "version": "3.0.1"
     },
     "security": [
         {
@@ -23,81 +23,6 @@
         "multipart/form-data"
     ],
     "paths": {
-        "/api/login": {
-            "post": {
-                "summary": "Connexion",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Utilisateur"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "email": "mkd2010@gmail.com",
-                                "password": "password"
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/register": {
             "post": {
                 "summary": "Inscription",
@@ -143,20 +68,14 @@
                 "tags": [
                     "Utilisateur"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ],
+                "parameters": [],
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "firstname": {
+                                    "first": {
                                         "type": "string"
                                     },
                                     "lastname": {
@@ -174,11 +93,80 @@
                                 }
                             },
                             "example": {
-                                "firstname": "Kabir",
-                                "lastname": "Diallo",
-                                "email": "mkd2010@gmail.com",
-                                "password": "password",
-                                "password_confirmation": "password"
+                                "first": "",
+                                "lastname": "",
+                                "email": "",
+                                "password": "",
+                                "password_confirmation": ""
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "summary": "Connexion",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Utilisateur"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "email": "",
+                                "password": ""
                             }
                         }
                     }
@@ -187,7 +175,7 @@
         },
         "/api/logout": {
             "post": {
-                "summary": "Déconnexion",
+                "summary": "Deconnexion",
                 "description": "",
                 "responses": {
                     "201": {
@@ -230,18 +218,12 @@
                 "tags": [
                     "Utilisateur"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
+                "parameters": []
             }
         },
         "/api/refresh": {
             "post": {
-                "summary": "Rafraîchir le token",
+                "summary": "Refresh token",
                 "description": "",
                 "responses": {
                     "201": {
@@ -284,18 +266,12 @@
                 "tags": [
                     "Utilisateur"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
+                "parameters": []
             }
         },
         "/api/profile": {
             "get": {
-                "summary": "Infos Profil Utilisateur",
+                "summary": "Profile",
                 "description": "",
                 "responses": {
                     "200": {
@@ -329,18 +305,51 @@
                 "tags": [
                     "Utilisateur"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
+                "parameters": []
+            }
+        },
+        "/api/getAllUsers": {
+            "get": {
+                "summary": "Liste de utilisateurs",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
                     }
-                ]
+                },
+                "tags": [
+                    "Utilisateur"
+                ],
+                "parameters": []
             }
         },
         "/api/updateprofile": {
             "put": {
-                "summary": "Modification du profil de l'utilisateur",
+                "summary": "Mise à jour profile",
                 "description": "",
                 "responses": {
                     "200": {
@@ -374,13 +383,7 @@
                 "tags": [
                     "Utilisateur"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ],
+                "parameters": [],
                 "requestBody": {
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -393,293 +396,38 @@
                                     "lastname": {
                                         "type": "string"
                                     },
+                                    "image": {
+                                        "type": "file"
+                                    },
                                     "email": {
                                         "type": "string"
-                                    },
-                                    "image": {
-                                        "type": "string",
-                                        "format": "binary"
                                     },
                                     "password": {
                                         "type": "string"
                                     },
                                     "password_confirmation": {
                                         "type": "string"
-                                    },
-                                    "": {
-                                        "type": "string"
                                     }
                                 }
                             },
                             "example": {
-                                "firstname": "Mouhamed Kabir",
-                                "lastname": "Diallo",
-                                "email": "kabir2010@gmail.com",
+                                "firstname": "",
+                                "lastname": "",
                                 "image": {
-                                    "type": "string",
-                                    "format": "binary"
+                                    "type": "file"                                
                                 },
-                                "password": "password",
-                                "password_confirmation": "password",
-                                "": ""
+                                "email": "",
+                                "password": "",
+                                "password_confirmation": ""
                             }
                         }
                     }
                 }
             }
         },
-        "/api/getAllUsers": {
-            "get": {
-                "summary": "Liste des utilisateurs ",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Utilisateur"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/blockuser/{user}": {
-            "patch": {
-                "summary": "Bloquer un utilisateur",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Utilisateur"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "user",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/unblockuser/{user}": {
-            "patch": {
-                "summary": "Débloquer un utilisateur",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Utilisateur"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "user",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/getblockedusers": {
-            "get": {
-                "summary": "Liste des utilisateur bloqués",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Utilisateur"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/deleteuser/{user}": {
-            "delete": {
-                "summary": "Supprimer un utilisateur",
-                "description": "",
-                "responses": {
-                    "204": {
-                        "description": "Deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Utilisateur"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "user",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
         "/api/addfield": {
             "post": {
-                "summary": "Ajouter un domaine",
+                "summary": "AjouterDomaine",
                 "description": "",
                 "responses": {
                     "201": {
@@ -722,13 +470,7 @@
                 "tags": [
                     "Domaine"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ],
+                "parameters": [],
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -742,8 +484,7 @@
                                         "type": "string"
                                     },
                                     "picture": {
-                                        "type": "string",
-                                        "format": "binary"
+                                        "type": "file"
                                     },
                                     "user_id": {
                                         "type": "string"
@@ -754,8 +495,7 @@
                                 "fieldname": "",
                                 "description": "",
                                 "picture": {
-                                    "type": "string",
-                                    "format": "binary"
+                                    "type": "file"
                                 },
                                 "user_id": ""
                             }
@@ -766,7 +506,7 @@
         },
         "/api/displayfield": {
             "get": {
-                "summary": "Afficher les domaines",
+                "summary": "AfficherDomaine",
                 "description": "",
                 "responses": {
                     "200": {
@@ -800,18 +540,12 @@
                 "tags": [
                     "Domaine"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
+                "parameters": []
             }
         },
         "/api/updatespecificfield/{field}": {
             "put": {
-                "summary": "Modifier un domaine",
+                "summary": "ModifierDomaine",
                 "description": "",
                 "responses": {
                     "200": {
@@ -850,11 +584,6 @@
                         "in": "path",
                         "name": "field",
                         "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
                     }
                 ],
                 "requestBody": {
@@ -870,11 +599,10 @@
                                         "type": "string"
                                     },
                                     "picture": {
-                                        "type": "string",
-                                        "format": "binary"
+                                        "type": "file"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -894,7 +622,7 @@
         },
         "/api/deletefield/{field}": {
             "delete": {
-                "summary": "Supprimer un domaine",
+                "summary": "SupprimerDomaine",
                 "description": "",
                 "responses": {
                     "204": {
@@ -942,18 +670,13 @@
                         "in": "path",
                         "name": "field",
                         "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
                     }
                 ]
             }
         },
         "/api/addforum": {
             "post": {
-                "summary": "Ajouter un forum",
+                "summary": "AjouterForum",
                 "description": "",
                 "responses": {
                     "201": {
@@ -996,18 +719,7 @@
                 "tags": [
                     "Forum"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "",
-                        "type": "string"
-                    }
-                ],
+                "parameters": [],
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -1020,28 +732,67 @@
                                     "description": {
                                         "type": "string"
                                     },
-                                    "user_id": {
-                                        "type": "string"
-                                    },
                                     "field_id": {
-                                        "type": "string"
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
                                     }
                                 }
                             },
                             "example": {
                                 "forumname": "",
                                 "description": "",
-                                "user_id": "",
-                                "field_id": ""
+                                "field_id": "",
+                                "user_id": ""
                             }
                         }
                     }
                 }
             }
         },
+        "/api/displayforum": {
+            "get": {
+                "summary": "AfficherForum",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Forum"
+                ],
+                "parameters": []
+            }
+        },
         "/api/updatespecificforum/{forum}": {
             "put": {
-                "summary": "Modifier un forum",
+                "summary": "ModifierForum",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1080,11 +831,6 @@
                         "in": "path",
                         "name": "forum",
                         "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
                     }
                 ],
                 "requestBody": {
@@ -1099,19 +845,19 @@
                                     "description": {
                                         "type": "string"
                                     },
-                                    "user_id": {
-                                        "type": "string"
-                                    },
                                     "field_id": {
-                                        "type": "string"
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
                                     }
                                 }
                             },
                             "example": {
                                 "forumname": "",
                                 "description": "",
-                                "user_id": "",
-                                "field_id": ""
+                                "field_id": "",
+                                "user_id": ""
                             }
                         }
                     }
@@ -1120,7 +866,7 @@
         },
         "/api/deleteforum/{forum}": {
             "delete": {
-                "summary": "Supprimer un forum",
+                "summary": "SupprimerForum",
                 "description": "",
                 "responses": {
                     "204": {
@@ -1168,18 +914,13 @@
                         "in": "path",
                         "name": "forum",
                         "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
                     }
                 ]
             }
         },
         "/api/addtopic": {
             "post": {
-                "summary": "Ajouter un sujet",
+                "summary": "AjouterSujet",
                 "description": "",
                 "responses": {
                     "201": {
@@ -1222,13 +963,7 @@
                 "tags": [
                     "Sujet"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ],
+                "parameters": [],
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -1238,20 +973,20 @@
                                     "content": {
                                         "type": "string"
                                     },
-                                    "msssage_received": {
-                                        "type": "string"
+                                    "message_received": {
+                                        "type": "integer"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "forum_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
                             "example": {
                                 "content": "",
-                                "msssage_received": "",
+                                "message_received": "",
                                 "user_id": "",
                                 "forum_id": ""
                             }
@@ -1260,13 +995,52 @@
                 }
             }
         },
-        "/api/displayspecifictopic/{topic}": {
+        "/api/displaytopic": {
             "get": {
-                "summary": "Afficher un sujet specifique",
+                "summary": "AfficherSujets",
                 "description": "",
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Sujet"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/displayspecifictopic/{topic}": {
+            "get": {
+                "summary": "AfficherSujetSpecific",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "Requete executé avec succes",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1300,56 +1074,6 @@
                     {
                         "in": "path",
                         "name": "topic",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/displaytopic": {
-            "get": {
-                "summary": "Afficher tous les sujets",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Sujet"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
                         "type": "string"
                     }
                 ]
@@ -1357,7 +1081,7 @@
         },
         "/api/updatespecifictopic/{topic}": {
             "put": {
-                "summary": "Modifier un sujet",
+                "summary": "ModifierSujetSpecific",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1395,11 +1119,6 @@
                     {
                         "in": "path",
                         "name": "topic",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
                         "type": "string"
                     }
                 ],
@@ -1412,21 +1131,21 @@
                                     "content": {
                                         "type": "string"
                                     },
-                                    "msssage_received": {
-                                        "type": "string"
+                                    "message_received": {
+                                        "type": "integer"
                                     },
-                                    "user_id": {
-                                        "type": "string"
+                                    "user_di": {
+                                        "type": "integer"
                                     },
                                     "forum_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
                             "example": {
                                 "content": "",
-                                "msssage_received": "",
-                                "user_id": "",
+                                "message_received": "",
+                                "user_di": "",
                                 "forum_id": ""
                             }
                         }
@@ -1436,7 +1155,7 @@
         },
         "/api/deletespecifictopic/{topic}": {
             "delete": {
-                "summary": "Supprimer un sujet",
+                "summary": "SupprimerSujetSpecific",
                 "description": "",
                 "responses": {
                     "204": {
@@ -1484,18 +1203,13 @@
                         "in": "path",
                         "name": "topic",
                         "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
                     }
                 ]
             }
         },
         "/api/sendmessage": {
             "post": {
-                "summary": "Envoyer un message",
+                "summary": "AjouterMessage",
                 "description": "",
                 "responses": {
                     "201": {
@@ -1538,13 +1252,7 @@
                 "tags": [
                     "Message"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ],
+                "parameters": [],
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -1555,10 +1263,10 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "topic_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -1574,7 +1282,7 @@
         },
         "/api/displaymessage": {
             "get": {
-                "summary": "Afficher les messages",
+                "summary": "AfficherMessage",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1608,18 +1316,12 @@
                 "tags": [
                     "Message"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
+                "parameters": []
             }
         },
         "/api/updatespecificmessage/{message}": {
             "put": {
-                "summary": "Modifier un message",
+                "summary": "ModifierMessage",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1658,11 +1360,6 @@
                         "in": "path",
                         "name": "message",
                         "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
                     }
                 ],
                 "requestBody": {
@@ -1675,10 +1372,10 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "topic_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -1694,7 +1391,7 @@
         },
         "/api/deletespecificmessage/{message}": {
             "delete": {
-                "summary": "Supprimer un message",
+                "summary": "SupprimerMessage",
                 "description": "",
                 "responses": {
                     "204": {
@@ -1742,18 +1439,13 @@
                         "in": "path",
                         "name": "message",
                         "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
                     }
                 ]
             }
         },
         "/api/sendreply": {
             "post": {
-                "summary": "Envoyer une réponse",
+                "summary": "AjouterReponse",
                 "description": "",
                 "responses": {
                     "201": {
@@ -1794,18 +1486,12 @@
                     }
                 },
                 "tags": [
-                    "Réponse"
+                    "Reponse"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ],
+                "parameters": [],
                 "requestBody": {
                     "content": {
-                        "multipart/form-data": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -1813,10 +1499,10 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "message_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -1828,11 +1514,12 @@
                         }
                     }
                 }
+
             }
         },
-        "/api/displayrepliesformessage/{message}": {
+        "/api/displayreply": {
             "get": {
-                "summary": "Afficher les réponses d'un message",
+                "summary": "AfficherReponse",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1864,62 +1551,51 @@
                     }
                 },
                 "tags": [
-                    "Réponse"
+                    "Reponse"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/displayrepliesformessage/{message}": {
+            "get": {
+                "summary": "AfficherReponsePourUnMessage",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Reponse"
                 ],
                 "parameters": [
                     {
                         "in": "path",
                         "name": "message",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/displayreply": {
-            "get": {
-                "summary": "Afficher les réponses",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Réponse"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
                         "type": "string"
                     }
                 ]
@@ -1927,7 +1603,7 @@
         },
         "/api/updatespecificreply/{reply}": {
             "put": {
-                "summary": "Modifier une réponse",
+                "summary": "ModifierReponse",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1959,17 +1635,12 @@
                     }
                 },
                 "tags": [
-                    "Réponse"
+                    "Reponse"
                 ],
                 "parameters": [
                     {
                         "in": "path",
                         "name": "reply",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
                         "type": "string"
                     }
                 ],
@@ -1983,10 +1654,10 @@
                                         "type": "string"
                                     },
                                     "user_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "message_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
@@ -2002,7 +1673,7 @@
         },
         "/api/deletespecificreply/{reply}": {
             "delete": {
-                "summary": "Supprimer une réponse",
+                "summary": "SupprimerReponse",
                 "description": "",
                 "responses": {
                     "204": {
@@ -2043,17 +1714,12 @@
                     }
                 },
                 "tags": [
-                    "Réponse"
+                    "Reponse"
                 ],
                 "parameters": [
                     {
                         "in": "path",
                         "name": "reply",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
                         "type": "string"
                     }
                 ]
