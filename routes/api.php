@@ -35,7 +35,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::put('updateprofile', 'updateProfile')->middleware('blocked');
 });
 
-Route::middleware(['isAdmin', 'auth:api'])->group(function () {
+Route::middleware(['isAdmin', 'auth:api','cors'])->group(function () {
     Route::get('/getAllUsers',[AuthController::class, 'getAllUsers']);
 
     Route::post('/addfield', [FieldController::class, 'Store']);
@@ -53,7 +53,7 @@ Route::middleware(['isAdmin', 'auth:api'])->group(function () {
 
 });
 
-Route::middleware(['auth:api','blocked'])->group(function () {
+Route::middleware(['auth:api','blocked','cors'])->group(function () {
 
     Route::get('/displayforum', [ForumController::class, 'show']);
 
@@ -77,4 +77,4 @@ Route::middleware(['auth:api','blocked'])->group(function () {
     Route::get('/getUsersInfos', [AuthController::class,'getUsersInfos']);
 });
 
-Route::get('/displayfield', [FieldController::class, 'index']);
+Route::get('/displayfield', [FieldController::class, 'index'])->middleware('cors');
