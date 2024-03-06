@@ -21,6 +21,40 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'is_admin' => true,
+            'is_blocked' => false,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('users')->insert([
+            'firstname' => 'Abdou',
+            'lastname' => 'Diallo',
+            'email' => 'abdou@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'is_admin' => false,
+            'is_blocked' => false,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('users')->insert([
+            'firstname' => 'Dédé',
+            'lastname' => 'Diop',
+            'email' => 'dede@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'is_admin' => false,
+            'is_blocked' => false,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('users')->insert([
+            'firstname' => 'Kabir',
+            'lastname' => 'Diallo',
+            'email' => 'kabir@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'is_admin' => false,
+            'is_blocked' => true,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
