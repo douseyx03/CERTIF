@@ -1,6 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
+
         "title": "Certif",
         "description": "Api de l'appli PENC",
         "version": "1.0.0"
@@ -47,11 +48,13 @@
                     "401": {
                         "description": "Non autorisé, identifiants invalides"
                     }
+
                 }
             }
         },
         "/api/register": {
             "post": {
+
                 "tags": [
                     "Auth"
                 ],
@@ -141,6 +144,7 @@
                         "description": "Non autorisé, jeton JWT invalide"
                     }
                 }
+
             }
         },
         "/api/displayfield": {
@@ -164,12 +168,14 @@
                                 }
                             }
                         }
+
                     }
                 }
             }
         },
         "/api/addfield": {
             "post": {
+
                 "tags": [
                     "Fields"
                 ],
@@ -452,10 +458,12 @@
                                     },
                                     "type": "object"
                                 }
+
                             }
                         }
                     },
                     "500": {
+
                         "description": "Erreur interne",
                         "content": {
                             "application/json": {
@@ -571,10 +579,12 @@
                                     },
                                     "type": "object"
                                 }
+
                             }
                         }
                     },
                     "500": {
+
                         "description": "Erreur interne",
                         "content": {
                             "application/json": {
@@ -646,10 +656,12 @@
                                     },
                                     "type": "object"
                                 }
+
                             }
                         }
                     },
                     "500": {
+
                         "description": "Erreur interne",
                         "content": {
                             "application/json": {
@@ -774,10 +786,12 @@
                                     },
                                     "type": "object"
                                 }
+
                             }
                         }
                     },
                     "500": {
+
                         "description": "Erreur interne",
                         "content": {
                             "application/json": {
@@ -877,10 +891,12 @@
                                     },
                                     "type": "object"
                                 }
+
                             }
                         }
                     },
                     "500": {
+
                         "description": "Erreur interne",
                         "content": {
                             "application/json": {
@@ -1030,10 +1046,12 @@
                                         }
                                     }
                                 }
+
                             }
                         }
                     },
                     "401": {
+
                         "description": "Non authentifié",
                         "content": {
                             "application/json": {
@@ -1236,10 +1254,12 @@
                                     },
                                     "type": "object"
                                 }
+
                             }
                         }
                     },
                     "401": {
+
                         "description": "Non authentifié",
                         "content": {
                             "application/json": {
@@ -1252,10 +1272,12 @@
                                     },
                                     "type": "object"
                                 }
+
                             }
                         }
                     },
                     "403": {
+
                         "description": "Accès interdit",
                         "content": {
                             "application/json": {
@@ -1390,5 +1412,6 @@
                 "scheme": "bearer"
             }
         }
+
     }
 }
