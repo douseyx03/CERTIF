@@ -77,6 +77,7 @@ Route::controller(AuthController::class)->group(function () {
  */
     Route::post('refresh', 'refresh');
 
+
 });
 
 Route::middleware(['isAdmin', 'auth:api'])->group(function () {
@@ -105,6 +106,7 @@ Route::middleware(['isAdmin', 'auth:api'])->group(function () {
  */
     Route::delete('/deletefield/{field}',[FieldController::class, 'destroy']);
 
+
 /**
  * @OA\Post(
  *     path="/addforum",
@@ -117,6 +119,7 @@ Route::middleware(['isAdmin', 'auth:api'])->group(function () {
  * )
  */
     Route::post('/addforum', [ForumController::class, 'Store']);
+
 /**
  * @OA\Delete(
  *     path="/deleteforum/{forum}",
@@ -129,6 +132,7 @@ Route::middleware(['isAdmin', 'auth:api'])->group(function () {
  * )
  */
     Route::delete('/deleteforum/{forum}',[ForumController::class, 'destroy']);
+
 
 });
 
@@ -145,6 +149,7 @@ Route::middleware('auth:api')->group(function () {
  * )
  */
     Route::get('/displayforum', [ForumController::class, 'show']);
+
 
 /**
  * @OA\Post(
@@ -205,6 +210,7 @@ Route::middleware('auth:api')->group(function () {
  *     )
  * )
  */
+
     Route::delete('/deletespecifictopic/{topic}',[TopicController::class,'destroy']);
 
 /**
@@ -219,6 +225,7 @@ Route::middleware('auth:api')->group(function () {
  * )
  */
     Route::post('/sendmessage',[MessageController::class,'store']);
+
 /**
  * @OA\Get(
  *     path="/displaymessage",
@@ -309,8 +316,16 @@ Route::middleware('auth:api')->group(function () {
 */
     Route::put('/updatespecificreply/{reply}',[ReplyController::class,'update']);
 
+
     
+
+    Route::post('/sendreply', [ReplyController::class, 'store']);
+    Route::post('/displayreply', [ReplyController::class, 'index']);
+    Route::post('/deletespecificreply/{reply}', [ReplyController::class, 'destroy']);
+    Route::post('/updatespecificreply/{reply}', [ReplyController::class, 'update']);
+    Route::get('/displayrepliesformessage/{message}', [ReplyController::class,'getRepliesByMessageId']);
 });
+
 
 /**
  * @OA\Get(
@@ -325,3 +340,4 @@ Route::middleware('auth:api')->group(function () {
  * 
  */
 Route::get('/displayfield', [FieldController::class, 'index']);
+

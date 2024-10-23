@@ -7,13 +7,19 @@ use App\Http\Requests\UpdateFieldRequest;
 use App\Models\Field;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use OpenApi\Annotations as OA;
 // @include('swagger_info');
 class FieldController extends Controller
 {
+<<<<<<< apiPlatform
     
     
+=======
+    const ATTRIBUT = 'required|integer';
+
+>>>>>>> main
     /**
  * Affiche une liste de domaines.
  * 
@@ -102,10 +108,37 @@ class FieldController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFieldRequest $request, Field $field)
-    {
-        //
-    }
+   public function update(UpdateFieldRequest $request, Field $field)
+   {
+       try {
+           $user = JWTAuth::parseToken()->authenticate();
+           
+           if (!$user) {
+               return response()->json(['message' => 'Unauthorized'], 401);
+           }
+           
+           Log::info('User authenticated: ' . $user->id);
+           
+           if ($user->id !== $field->user_id) {
+               return response()->json(['message' => 'Ce domaine n\'a pas été créé par vous. Ce domaine ne vous appartient pas.'], 403);
+           }
+           
+           $data = $request->only(['fieldname', 'description']);
+           if ($request->hasFile('picture')) {
+               $file = $request->file('picture');
+               $filename = date('YmdHi') . $file->getClientOriginalName();
+               $file->move(public_path('pictures/field'), $filename);
+               $data['picture'] = $filename;
+           }
+           
+           $field->update($data);
+           
+           return response()->json($field);
+       } catch (\Exception $e) {
+            Log::error('Error updating field: ' . $e->getMessage());
+           return response()->json(['message' => 'An error occurred while updating the field.'], 500);
+       }
+   }
 
     /**
  * Supprime la ressource spécifiée.
