@@ -9,14 +9,36 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
-
+use OpenApi\Annotations as OA;
+// @include('swagger_info');
 class FieldController extends Controller
 {
+<<<<<<< apiPlatform
+    
+    
+=======
     const ATTRIBUT = 'required|integer';
 
+>>>>>>> main
     /**
-     * Display a listing of the resource.
-     */
+ * Affiche une liste de domaines.
+ * 
+ * @OA\Get(
+ *     path="/api/displayfield",
+ *     tags={"Fields"},
+ *     summary="Affiche une liste des domaines",
+ *     @OA\Response(
+ *         response=200,
+ *         description="Opération réussie",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(ref="#/components/schemas/Field")
+ *         )
+ *     )
+ * )
+ *
+ * @return JsonResponse
+ */
     public function index()
     {
         return response()->json(Field::where('is_archived', false)->get());
@@ -30,9 +52,25 @@ class FieldController extends Controller
         //
     }
 
-   /**
-     * ***Store a newly created resource in storage(It'll be used to store in our database the newly created fields).
-     */
+  /**
+ * Stocke une nouvelle ressource créée dans le stockage (Il sera utilisé pour stocker dans notre base de données les champs nouvellement créés).
+ * 
+ * @OA\Post(
+ *     path="/api/addfield",
+ *     tags={"Fields"},
+ *     summary="Stocke une nouvelle ressource créée",
+ *     @OA\RequestBody(
+ *         @OA\JsonContent(ref="#/components/schemas/StoreFieldRequest")
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Opération réussie"
+ *     )
+ * )
+ *
+ * @param StoreFieldRequest $request
+ * @return JsonResponse
+ */
     public function store(StoreFieldRequest $request): JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();
@@ -48,7 +86,6 @@ class FieldController extends Controller
             $file-> move(public_path('pictures/field'), $filename);
             $field['picture']= $filename;
         }
-        //  dd($field);
         $field->save();
         return response()->json(['message' => 'Votre domaine a bien été créé.'], 201);
     }
@@ -104,8 +141,31 @@ class FieldController extends Controller
    }
 
     /**
-     * Remove the specified resource from storage.
-     */
+ * Supprime la ressource spécifiée.
+ * 
+ * @OA\Delete(
+ *     path="/api/deletefield/{field}",
+ *     tags={"Fields"},
+ *     summary="Supprime la ressource spécifiée",
+ *     @OA\Parameter(
+ *         name="field",
+ *         in="path",
+ *         description="ID de la ressource",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer"
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Opération réussie",
+ *         @OA\JsonContent(ref="#/components/schemas/Field")
+ *     )
+ * )
+ *
+ * @param Field $field
+ * @return JsonResponse
+ */
     public function destroy(Field $field)
     {
         $field->is_archived = true;

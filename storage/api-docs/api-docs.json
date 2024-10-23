@@ -1,538 +1,283 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "PENC API",
-        "description": "L'API DE L'APPLICATION PENC",
-        "version": "1.4"
+
+        "title": "Certif",
+        "description": "Api de l'appli PENC",
+        "version": "1.0.0"
     },
-    "security": [
-        {
-            "BearerAuth": []
-        }
-    ],
-    "components": {
-        "securitySchemes": {
-            "BearerAuth": {
-                "type": "http",
-                "scheme": "bearer",
-                "bearerFormat": "JWT"
-            }
-        }
-    },
-    "consumes": [
-        "multipart/form-data"
-    ],
     "paths": {
-        "/api/refresh": {
-            "post": {
-                "summary": "Actualiser le JWToken",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Le token a été rafraichit avec succes",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": " Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": " Accès à la ressource non autorisé, en raison d'autorisation manquante",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "JWTAuthentification"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/logout": {
-            "post": {
-                "summary": "Deconnexion",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "La requête a été traitée avec succes, deconnexion effectuee avec succes",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": " Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "JWTAuthentification"
-                ],
-                "parameters": []
-            }
-        },
         "/api/login": {
             "post": {
-                "summary": "Connexion ",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": " La requête a été traitée avec succès, connexion effectuee avec succes",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Authentifier l'utilisateur et obtenir le jeton JWT",
+                "description": "Authentifier un utilisateur en fournissant son adresse e-mail et son mot de passe, et obtenir un jeton JWT en réponse",
+                "operationId": "44212a9096e4b09358281e9ec8a0701d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "utilisateur@exemple.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "secret"
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
                 },
-                "tags": [
-                    "JWTAuthentification"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "email": "dousey2003@gmail.com",
-                                "password": "********"
-                            }
-                        }
+                "responses": {
+                    "200": {
+                        "description": "Authentification réussie, jeton JWT reçu"
+                    },
+                    "401": {
+                        "description": "Non autorisé, identifiants invalides"
                     }
+
                 }
             }
         },
         "/api/register": {
             "post": {
-                "summary": "Inscription",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": " la requête a été traitée avec succès, inscription effectuer",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": " Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
+
                 "tags": [
-                    "JWTAuthentification"
+                    "Auth"
                 ],
-                "parameters": [],
+                "summary": "Enregistrer un nouvel utilisateur",
+                "description": "Enregistrer un nouvel utilisateur en fournissant les informations requises",
+                "operationId": "a718f172ff3ac464d723835815f8fb57",
                 "requestBody": {
+                    "required": true,
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
-                                "type": "object",
+                                "required": [
+                                    "firstname",
+                                    "lastname",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
                                 "properties": {
                                     "firstname": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "John"
                                     },
                                     "lastname": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Doe"
                                     },
                                     "email": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "nouveau@utilisateur.com"
                                     },
                                     "password": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "secret"
                                     },
                                     "password_confirmation": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "secret"
                                     }
-                                }
-                            },
-                            "example": {
-                                "firstname": "Rokhaya",
-                                "lastname": "Ndiaye",
-                                "email": "ndeye@gmail.com",
-                                "password": "password",
-                                "password_confirmation": "password"
+                                },
+                                "type": "object"
                             }
                         }
                     }
-                }
-            }
-        },
-        "/api/updatespecificfield/{field}": {
-            "put": {
-                "summary": "Modifier un domaine",
-                "description": "",
+                },
                 "responses": {
                     "200": {
-                        "description": " la requête a été traitée avec succès, modification effectuée",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
+                        "description": "Inscription réussie, utilisateur créé"
                     },
-                    "404": {
-                        "description": "la ressource demandée n'a pas été trouvée sur le serveur, le domaine que vous chercher à modifier n'existe pas ",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès, Veuillez réessayer",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Domaine"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "field",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "fieldname": {
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "type": "string"
-                                    },
-                                    "picture": {
-                                        "type": "file"
-                                    },
-                                    "user_id": {
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "fieldname": "",
-                                "description": "",
-                                "picture": "",
-                                "user_id": ""
-                            }
-                        }
+                    "422": {
+                        "description": "Échec de la validation des données"
                     }
                 }
             }
         },
-        "/api/deletefield/{field}": {
-            "delete": {
-                "summary": "SupprimerDomaine",
-                "description": "",
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Déconnecter l'utilisateur actuellement authentifié",
+                "description": "Déconnecter l'utilisateur actuellement authentifié et révoquer le jeton JWT",
+                "operationId": "79854151e609bd20032aa5aa4d5a35c0",
                 "responses": {
-                    "204": {
-                        "description": "la requête a été traitée avec succès, suppression effectuée",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
+                    "200": {
+                        "description": "Déconnexion réussie"
+                    }
+                }
+            }
+        },
+        "/api/refresh": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Rafraîchir le jeton JWT actuel",
+                "description": "Rafraîchir le jeton JWT actuel en obtenant un nouveau jeton valide",
+                "operationId": "7d5da2870d3eba95cdd67878ab20da3a",
+                "responses": {
+                    "200": {
+                        "description": "Rafraîchissement réussi, nouveau jeton JWT reçu"
                     },
                     "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": " la ressource demandée n'a pas été trouvée sur le serveur",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
+                        "description": "Non autorisé, jeton JWT invalide"
                     }
-                },
-                "tags": [
-                    "Domaine"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "field",
-                        "type": "string"
-                    }
-                ]
+                }
+
             }
         },
         "/api/displayfield": {
             "get": {
-                "summary": "AfficherDomaine",
-                "description": "",
+                "tags": [
+                    "Fields"
+                ],
+                "summary": "Affiche une liste des domaines",
+                "description": "Affiche une liste de domaines.",
+                "operationId": "b97628a65643e4ae4025f1b9b80f4153",
                 "responses": {
                     "200": {
-                        "description": "la requête a été traitée avec succès,",
+                        "description": "Opération réussie",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": {
-                                    "id": 1,
-                                    "fieldname": "Test Field",
-                                    "description": "Test Description",
-                                    "picture": "202402011056test_picture.jpg",
-                                    "is_archived": 0,
-                                    "user_id": 5,
-                                    "created_at": "2024-02-01T10:56:33.000000Z",
-                                    "updated_at": "2024-02-01T10:56:33.000000Z"
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Field"
+                                    }
                                 }
                             }
                         }
-                    },
-                    "404": {
-                        "description": " la ressource demandée n'a pas été trouvée sur le serveur. ",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès, Veuillez réessayer",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Domaine"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {}
-                            },
-                            "example": {}
-                        }
+
                     }
                 }
             }
         },
         "/api/addfield": {
             "post": {
-                "summary": "Ajouter un Domaine",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "la requête a été traitée avec succès,domaine créé",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": " Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
+
+                "tags": [
+                    "Fields"
+                ],
+                "summary": "Stocke une nouvelle ressource créée",
+                "description": "Stocke une nouvelle ressource créée dans le stockage (Il sera utilisé pour stocker dans notre base de données les champs nouvellement créés).",
+                "operationId": "3db3f7101991eda4f4aac366d2923e9d",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreFieldRequest"
                             }
                         }
                     }
                 },
+                "responses": {
+                    "201": {
+                        "description": "Opération réussie"
+                    }
+                }
+            }
+        },
+        "/api/deletefield/{field}": {
+            "delete": {
                 "tags": [
-                    "Domaine"
+                    "Fields"
                 ],
-                "parameters": [],
+                "summary": "Supprime la ressource spécifiée",
+                "description": "Supprime la ressource spécifiée.",
+                "operationId": "e6b82a28e722f51a8539b72a5a6da5c9",
+                "parameters": [
+                    {
+                        "name": "field",
+                        "in": "path",
+                        "description": "ID de la ressource",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Opération réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Field"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/addforum": {
+            "post": {
+                "tags": [
+                    "Forums"
+                ],
+                "summary": "Stocke une nouvelle ressource créée",
+                "description": "Stocke une nouvelle ressource créée dans le stockage (Il sera utilisé pour stocker dans notre base de données les forums nouvellement créés).",
+                "operationId": "fa3b0667189c49d549a2137bf0bc69f5",
                 "requestBody": {
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "fieldname": {
-                                        "type": "string"
+                                "$ref": "#/components/schemas/StoreForumRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Opération réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Votre forum a bien été créé."
+                                        }
                                     },
-                                    "description": {
-                                        "type": "string"
-                                    },
-                                    "picture": {
-                                        "type": "file"
-                                    },
-                                    "user_id": {
-                                        "type": "integer"
-                                    }
+                                    "type": "object"
                                 }
-                            },
-                            "example": {
-                                "fieldname": "",
-                                "description": "",
-                                "picture": "",
-                                "user_id": ""
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Entité non traitable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Il existe déjà un forum pour ce domaine"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -541,448 +286,196 @@
         },
         "/api/displayforum": {
             "get": {
-                "summary": "AfficherForum",
-                "description": "",
+                "tags": [
+                    "Forums"
+                ],
+                "summary": "Affiche toutes les ressources",
+                "description": "Affiche toutes les ressources.",
+                "operationId": "d4f20efd6200a6e64dea0aedcf0c4a52",
                 "responses": {
                     "200": {
-                        "description": " la requête a été traitée avec succès",
+                        "description": "Opération réussie",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": " la ressource demandée n'a pas été trouvée sur le serveur.",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès, Veuillez réessayer",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Forum"
+                                    }
+                                }
                             }
                         }
                     }
-                },
-                "tags": [
-                    "Forum"
-                ],
-                "parameters": []
+                }
             }
         },
         "/api/deleteforum/{forum}": {
             "delete": {
-                "summary": "SupprimerForum",
-                "description": "",
-                "responses": {
-                    "204": {
-                        "description": " la requête a été traitée avec succès",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
                 "tags": [
-                    "Forum"
+                    "Forums"
                 ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "forum",
-                        "type": "string"
-                    }
-                ],
+                "summary": "Supprime la ressource spécifiée",
+                "description": "Supprime la ressource spécifiée.",
+                "operationId": "d9e02131e2b5d7cc5466056a8dd9e9cb",
                 "requestBody": {
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
-                                "type": "object",
-                                "properties": {}
-                            },
-                            "example": {}
-                        }
-                    }
-                }
-            }
-        },
-        "/api/addforum": {
-            "post": {
-                "summary": "AjouterForum",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": " la requête a été traitée avec succès,",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Forum"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
                                 "properties": {
-                                    "forumname": {
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "type": "string"
-                                    },
-                                    "user_id": {
-                                        "type": "integer"
-                                    },
-                                    "forum_id": {
-                                        "type": "integer"
-                                    }                                }
-                            },
-                            "example": {
-                                "forumname": "",
-                                "description": "",
-                                "user_id": "",
-                                "forum_id": ""                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/deletespecifictopic/{topic}": {
-            "post": {
-                "summary": "SupprimerSujetSpecific",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": " la requête a été traitée avec succès,",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Sujet"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "topic",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {}
-                            },
-                            "example": {}
-                        }
-                    }
-                }
-            }
-        },
-        "/api/updatespecifictopic/{topic}": {
-            "put": {
-                "summary": "ModifierSujetSpecific",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "la requête a été traitée avec succès,",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Sujet"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "topic",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/displayspecifictopic/{topic}": {
-            "get": {
-                "summary": "AfficherSujetSpecific",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "la requête a été traitée avec succès,",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Sujet"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "topic",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/displaytopic": {
-            "get": {
-                "summary": "AfficherSujets",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "la requête a été traitée avec succès,",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Sujet"
-                ],
-                "parameters": []
-            }
-        },
-        "/api/addtopic": {
-            "post": {
-                "summary": "AjouterSujet",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": " la requête a été traitée avec succès,",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Sujet"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "content": {
-                                        "type": "string"
-                                    },
-                                    "message_received": {
-                                        "type": "string"
-                                    },
-                                    "user_id": {
-                                        "type": "integer"
-                                    },
-                                    "forum_id": {
+                                    "id": {
+                                        "description": "ID de la ressource à supprimer",
                                         "type": "integer"
                                     }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Opération réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Le forum a été supprimé avec succès."
+                                        }
+                                    },
+                                    "type": "object"
                                 }
-                            },
-                            "example": {
-                                "content": "",
-                                "message_received": "",
-                                "user_id": "",
-                                "forum_id": ""
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/displaymessage": {
+            "get": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Retourne la liste des sujets avec leurs messages associés",
+                "description": "Retourne la liste des sujets avec leurs messages associés.",
+                "operationId": "6d879defb5f48e74a1e221a53bf3ced9",
+                "responses": {
+                    "200": {
+                        "description": "Opération réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/Message"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "An unexpected error occurred"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sendmessage": {
+            "post": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Crée un nouveau message dans un sujet spécifié",
+                "description": "Crée un nouveau message dans un sujet spécifié.",
+                "operationId": "514defc4d6d1297e61e693997583ab54",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "message_content",
+                                    "topic_id"
+                                ],
+                                "properties": {
+                                    "message_content": {
+                                        "type": "string",
+                                        "example": "Contenu du message"
+                                    },
+                                    "topic_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Opération réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Votre message a bien été créé."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requête incorrecte",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Un administrateur ne peut pas envoyer de message."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+
+                            }
+                        }
+                    },
+                    "500": {
+
+                        "description": "Erreur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Une erreur est survenue lors de la création du message."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
@@ -991,315 +484,196 @@
         },
         "/api/updatespecificmessage/{message}": {
             "put": {
-                "summary": "ModifierMessage",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "la requête a été traitée avec succès,",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
                 "tags": [
-                    "Message"
+                    "Messages"
                 ],
+                "summary": "Met à jour un message existant",
+                "description": "Met à jour un message existant.",
+                "operationId": "1d8f083ca53736d8103878f424c9dfbf",
                 "parameters": [
                     {
-                        "in": "path",
                         "name": "message",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "",
-                        "type": "string"
+                        "in": "path",
+                        "description": "ID du message à mettre à jour",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
-                ]
-            }
-        },
-        "/api/displaymessage": {
-            "get": {
-                "summary": "AfficherMessage",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "la requête a été traitée avec succès,",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "message_content",
+                                    "user_id",
+                                    "topic_id"
+                                ],
+                                "properties": {
+                                    "message_content": {
+                                        "type": "string",
+                                        "example": "Nouveau contenu du message"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "topic_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
                 },
-                "tags": [
-                    "Message"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "message_content": {
-                                        "type": "string"
+                "responses": {
+                    "201": {
+                        "description": "Modifications effectuées avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Modifications effectuées avec succès."
+                                        },
+                                        "resultat": {
+                                            "$ref": "#/components/schemas/Message"
+                                        }
                                     },
-                                    "user_id": {
-                                        "type": "integer"
-                                    },
-                                    "topic_id": {
-                                        "type": "integer"
-                                    }
+                                    "type": "object"
                                 }
-                            },
-                            "example": {
-                                "message_content": "",
-                                "user_id": "",
-                                "topic_id": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non autorisé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès refusé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ce message ne vous appartient pas."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+
+                            }
+                        }
+                    },
+                    "500": {
+
+                        "description": "Erreur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erreur interne. Veuillez réessayer."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Message d'erreur spécifique"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
                 }
-
             }
         },
         "/api/deletespecificmessage/{message}": {
             "delete": {
-                "summary": "SupprimerMessage",
-                "description": "",
-                "responses": {
-                    "204": {
-                        "description": "  la requête a été traitée avec succès,",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
                 "tags": [
-                    "Message"
+                    "Messages"
                 ],
+                "summary": "Supprime un message existant",
+                "description": "Supprime un message existant.",
+                "operationId": "c237358655bcd0fe27f0d0146da473b9",
                 "parameters": [
                     {
+                        "name": "message",
                         "in": "path",
-                        "name": "message",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "message",
-                        "type": "string"
+                        "description": "ID du message à supprimer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
-                ]
-            }
-        },
-        "/api/addmessage": {
-            "post": {
-                "summary": "AjouterMessage",
-                "description": "",
+                ],
                 "responses": {
-                    "201": {
-                        "description": " la requête a été traitée avec succès,",
+                    "200": {
+                        "description": "Message supprimé avec succès par l'administrateur",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Le message a été supprimé avec succès par l'administrateur."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
                     "403": {
-                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
+                        "description": "Accès refusé",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Message"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "message_content": {
-                                        "type": "string"
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Vous n'êtes pas autorisé à supprimer ce message."
+                                        }
                                     },
-                                    "user_id": {
-                                        "type": "integer"
-                                    },
-                                    "topic_id": {
-                                        "type": "integer"
-                                    }
+                                    "type": "object"
                                 }
-                            },
-                            "example": {
-                                "message_content": "",
-                                "user_id": "",
-                                "topic_id": ""
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/updatespecificreply/{reply}": {
-            "put": {
-                "summary": "ModifierReponse",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "la requête a été traitée avec succès,",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
+
                             }
                         }
                     },
                     "500": {
-                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
+
+                        "description": "Erreur interne",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Reponse"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "reply",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "reply_content": {
-                                        "type": "string"
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Une erreur est survenue lors de l'authentification."
+                                        }
                                     },
-                                    "user_id": {
-                                        "type": "integer"
-                                    },
-                                    "message_id": {
-                                        "type": "integer"
-                                    }
+                                    "type": "object"
                                 }
-                            },
-                            "example": {
-                                "reply_content": "",
-                                "user_id": "",
-                                "message_id": ""
                             }
                         }
                     }
@@ -1308,169 +682,736 @@
         },
         "/api/displayreply": {
             "get": {
-                "summary": "AfficherReponse",
-                "description": "",
+                "tags": [
+                    "Replies"
+                ],
+                "summary": "Récupère tous les messages et leurs réponses",
+                "description": "Récupère tous les messages et leurs réponses.",
+                "operationId": "b06c7812fc8b25d84806a5e7ae0879d5",
                 "responses": {
                     "200": {
-                        "description": "la requête a été traitée avec succès,",
+                        "description": "Liste de messages et leurs réponses",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/Reply"
+                                        }
+                                    }
+                                }
                             }
                         }
                     },
                     "500": {
-                        "description": "une erreur s'est produite du côté du serveur, empêchant la requête d'être traitée avec succès",
+                        "description": "Erreur interne",
                         "content": {
                             "application/json": {
-                                "schema": {},
-                                "example": ""
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Une erreur inattendue est survenue"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
-                },
-                "tags": [
-                    "Reponse"
-                ],
-                "parameters": []
-            }
-        },
-        "/api//deletespecificreply/{reply}": {
-            "delete": {
-                "summary": "SupprimerReponse",
-                "description": "",
-                "responses": {
-                    "204": {
-                        "description": "Deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "la ressource demandée n'a pas été trouvée sur le serveur.",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Reponse"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "reply",
-                        "type": "string"
-                    }
-                ]
+                }
             }
         },
         "/api/sendreply": {
             "post": {
-                "summary": "AjouterReponse",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": " la requête a été traitée avec succès,",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Le serveur ne peut pas traiter la requête car elle est mal formulée ou contient des erreurs",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Accès à la ressource non autorisé, en raison d'identifiants invalides ou manquants",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Accès à la ressource non autorisé, en raison d'autorisation manquante",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
+                "tags": [
+                    "Replies"
+                ],
+                "summary": "Crée une nouvelle réponse à un message",
+                "description": "Crée une nouvelle réponse à un message.",
+                "operationId": "b620f1a3af2e91e887011b33c34bde91",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "reply_content",
+                                    "message_id"
+                                ],
+                                "properties": {
+                                    "reply_content": {
+                                        "type": "string",
+                                        "example": "Contenu de la réponse"
+                                    },
+                                    "message_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
                 },
+                "responses": {
+                    "200": {
+                        "description": "Réponse créée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Votre reponse a bien été créé."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requête incorrecte",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Un administrateur ne peut pas envoyer de reponse."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+
+                            }
+                        }
+                    },
+                    "500": {
+
+                        "description": "Erreur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Une erreur est survenue lors de la création de la reponse."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/updatespecificreply/{reply}": {
+            "put": {
                 "tags": [
-                    "Reponse"
+                    "Replies"
                 ],
-                "parameters": [],
+                "summary": "Met à jour une réponse existante",
+                "description": "Met à jour une réponse existante.",
+                "operationId": "a2a2e6c709b55c6f6fd54a0a11fdf62c",
+                "parameters": [
+                    {
+                        "name": "reply",
+                        "in": "path",
+                        "description": "ID de la réponse à mettre à jour",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
+                    "required": true,
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
-                                "type": "object",
+                                "required": [
+                                    "reply_content",
+                                    "user_id",
+                                    "message_id"
+                                ],
                                 "properties": {
                                     "reply_content": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Nouveau contenu de la réponse"
                                     },
                                     "user_id": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "message_id": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Modifications effectuées avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Modifications effectuées avec succès."
+                                        },
+                                        "resultat": {
+                                            "$ref": "#/components/schemas/Reply"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requête incorrecte",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Le contenu est requis."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+
+                            }
+                        }
+                    },
+                    "500": {
+
+                        "description": "Erreur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erreur interne. Veuillez réessayer."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Message d'erreur spécifique"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/deletespecificreply/{reply}": {
+            "delete": {
+                "tags": [
+                    "Replies"
+                ],
+                "summary": "Supprime une réponse existante",
+                "description": "Supprime une réponse existante.",
+                "operationId": "51bad72b96fdb3fa6073ea9168dfee0a",
+                "parameters": [
+                    {
+                        "name": "reply",
+                        "in": "path",
+                        "description": "ID de la réponse à supprimer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Suppression réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Le réponse a été supprimé avec succès par l'administrateur."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Non autorisé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Vous n'êtes pas autorisé à supprimer cette réponse."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Une erreur est survenue."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/displaytopic": {
+            "get": {
+                "tags": [
+                    "Topics"
+                ],
+                "summary": "Affiche une liste des sujets pour chaque forum",
+                "description": "Affiche une liste des sujets pour chaque forum.",
+                "operationId": "917eeea90c13ee477a68ff3d30b72b06",
+                "responses": {
+                    "200": {
+                        "description": "Opération réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "content": {
+                                                    "type": "string"
+                                                },
+                                                "message_received": {
+                                                    "type": "integer"
+                                                },
+                                                "user_id": {
+                                                    "type": "integer"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
                                     }
                                 }
-                            },
-                            "example": {
-                                "reply_content": "",
-                                "user_id": "",
-                                "message_id": ""
+
+                            }
+                        }
+                    },
+                    "401": {
+
+                        "description": "Non authentifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/addtopic": {
+            "post": {
+                "tags": [
+                    "Topics"
+                ],
+                "summary": "Crée un nouveau sujet dans un forum",
+                "description": "Crée un nouveau sujet dans un forum.",
+                "operationId": "032e21b4b94cb6e571debd0a30ea8f42",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "content",
+                                    "message_received",
+                                    "forum_id"
+                                ],
+                                "properties": {
+                                    "content": {
+                                        "description": "Contenu du sujet",
+                                        "type": "string"
+                                    },
+                                    "message_received": {
+                                        "description": "Message reçu",
+                                        "type": "integer"
+                                    },
+                                    "forum_id": {
+                                        "description": "ID du forum",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sujet créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Votre sujet a bien été créé."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requête incorrecte",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Vous avez déjà créé un sujet avec le même contenu dans ce forum."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/displayspecifictopic/{topic}": {
+            "get": {
+                "tags": [
+                    "Topics"
+                ],
+                "summary": "Affiche le sujet spécifié",
+                "description": "Affiche le sujet spécifié.",
+                "operationId": "c21a5827346579e30facaa3561661ef8",
+                "parameters": [
+                    {
+                        "name": "topic",
+                        "in": "path",
+                        "description": "ID du sujet",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Opération réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Topic"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/updatespecifictopic/{topic}": {
+            "put": {
+                "tags": [
+                    "Topics"
+                ],
+                "summary": "Met à jour le sujet spécifié",
+                "description": "Met à jour le sujet spécifié.",
+                "operationId": "32a369f7fe0d38cd7b098f31422f3b19",
+                "parameters": [
+                    {
+                        "name": "topic",
+                        "in": "path",
+                        "description": "ID du sujet",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTopicRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Opération réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Modifications effectuées avec succès."
+                                        },
+                                        "topic": {
+                                            "$ref": "#/components/schemas/Topic"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+
+                            }
+                        }
+                    },
+                    "401": {
+
+                        "description": "Non authentifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+
+                            }
+                        }
+                    },
+                    "403": {
+
+                        "description": "Accès interdit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Vous ne pouvez pas modifier un sujet avec un message reçu."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erreur interne. Veuillez réessayer."
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Message d'erreur spécifique"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/deletespecifictopic/{topic}": {
+            "delete": {
+                "tags": [
+                    "Topics"
+                ],
+                "summary": "Supprime le sujet spécifié",
+                "description": "Supprime le sujet spécifié.",
+                "operationId": "6caf30677c9a7018b6954595de6f826c",
+                "parameters": [
+                    {
+                        "name": "topic",
+                        "in": "path",
+                        "description": "ID du sujet",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Opération réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Le sujet a été supprimé avec succès par l'administrateur."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès interdit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Vous n'êtes pas autorisé à supprimer ce sujet."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Une erreur est survenue lors de l'authentification."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
                 }
             }
         }
+    },
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+
     }
 }

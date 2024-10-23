@@ -8,15 +8,44 @@ use App\Models\Message;
 use App\Models\Reply;
 use Illuminate\Support\Facades\Log;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
-
+use OpenApi\Annotations as OA;
+// @include('swagger_info');
 class ReplyController extends Controller
 {
+    
     const ATTRIBUT = 'required|integer';
     const USER_AUTHENTICATED_MESSAGE = 'User authenticated:';
 
     /**
-     * Display a listing of the resource.
-     */
+ * Récupère tous les messages et leurs réponses.
+ *
+ * @OA\Get(
+ *     path="/api/displayreply",
+ *     tags={"Replies"},
+ *     summary="Récupère tous les messages et leurs réponses",
+ *     @OA\Response(
+ *         response=200,
+ *         description="Liste de messages et leurs réponses",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\AdditionalProperties(
+ *                 type="array",
+ *                 @OA\Items(ref="#/components/schemas/Reply")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Erreur interne",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="error", type="string", example="Une erreur inattendue est survenue")
+ *         )
+ *     )
+ * )
+ *
+ * @return JsonResponse
+ */
     public function index()
     {
         try {
@@ -51,9 +80,50 @@ class ReplyController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+   /**
+ * Crée une nouvelle réponse à un message.
+ *
+ * @OA\Post(
+ *     path="/api/sendreply",
+ *     tags={"Replies"},
+ *     summary="Crée une nouvelle réponse à un message",
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"reply_content", "message_id"},
+ *             @OA\Property(property="reply_content", type="string", example="Contenu de la réponse"),
+ *             @OA\Property(property="message_id", type="integer", example=1)
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Réponse créée avec succès",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Votre reponse a bien été créé.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Requête incorrecte",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Un administrateur ne peut pas envoyer de reponse.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Erreur interne",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="error", type="string", example="Une erreur est survenue lors de la création de la reponse.")
+ *         )
+ *     )
+ * )
+ *
+ * @param StoreReplyRequest $request
+ * @return JsonResponse
+ */
     public function store(StoreReplyRequest $request)
     {
     
@@ -119,8 +189,114 @@ class ReplyController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     */
+ * Met à jour une réponse existante.
+ *
+ * @OA\Put(
+ *     path="/api/replies/{reply}",
+ *     tags={"Replies"},
+ *     summary="Met à jour une réponse existante",
+ *     @OA\Parameter(
+ *         name="reply",
+ *         in="path",
+ *         required=true,
+ *         description="ID de la réponse à mettre à jour",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"reply_content", "user_id", "message_id"},
+ *             @OA\Property(property="reply_content", type="string", example="Nouveau contenu de la réponse"),
+ *             @OA\Property(property="user_id", type="integer", example=1),
+ *             @OA\Property(property="message_id", type="integer", example=1)
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Modifications effectuées avec succès",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Modifications effectuées avec succès."),
+ *             @OA\Property(property="resultat", ref="#/components/schemas/Reply")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Requête incorrecte",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Le contenu est requis.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Erreur interne",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Erreur interne. Veuillez réessayer."),
+ *             @OA\Property(property="error", type="string", example="Message d'erreur spécifique")
+ *         )
+ *     )
+ * )
+ *
+ * @param UpdateReplyRequest $request
+ * @param Reply $reply
+ * @return JsonResponse
+ *//**
+ * Met à jour une réponse existante.
+ *
+ * @OA\Put(
+ *     path="/api/updatespecificreply/{reply}",
+ *     tags={"Replies"},
+ *     summary="Met à jour une réponse existante",
+ *     @OA\Parameter(
+ *         name="reply",
+ *         in="path",
+ *         required=true,
+ *         description="ID de la réponse à mettre à jour",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"reply_content", "user_id", "message_id"},
+ *             @OA\Property(property="reply_content", type="string", example="Nouveau contenu de la réponse"),
+ *             @OA\Property(property="user_id", type="integer", example=1),
+ *             @OA\Property(property="message_id", type="integer", example=1)
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Modifications effectuées avec succès",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Modifications effectuées avec succès."),
+ *             @OA\Property(property="resultat", ref="#/components/schemas/Reply")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Requête incorrecte",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Le contenu est requis.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Erreur interne",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Erreur interne. Veuillez réessayer."),
+ *             @OA\Property(property="error", type="string", example="Message d'erreur spécifique")
+ *         )
+ *     )
+ * )
+ *
+ * @param UpdateReplyRequest $request
+ * @param Reply $reply
+ * @return JsonResponse
+ */
     public function update(UpdateReplyRequest $request, Reply $reply)
     {
         $user = JWTAuth::parseToken()->authenticate();
@@ -157,9 +333,57 @@ class ReplyController extends Controller
          }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+   /**
+ * Supprime une réponse existante.
+ *
+ * @OA\Delete(
+ *     path="/api/deletespecificreply/{reply}",
+ *     tags={"Replies"},
+ *     summary="Supprime une réponse existante",
+ *     @OA\Parameter(
+ *         name="reply",
+ *         in="path",
+ *         required=true,
+ *         description="ID de la réponse à supprimer",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Suppression réussie",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Le réponse a été supprimé avec succès par l'administrateur."),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Non autorisé",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Vous n'êtes pas autorisé à supprimer cette réponse.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Non trouvé",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="User not found.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Erreur interne",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="message", type="string", example="Une erreur est survenue.")
+ *         )
+ *     )
+ * )
+ *
+ * @param Reply $reply
+ * @return JsonResponse
+ */
     public function destroy(Reply $reply)
     {
         try {
