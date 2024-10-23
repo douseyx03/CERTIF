@@ -13,13 +13,6 @@ use OpenApi\Annotations as OA;
 // @include('swagger_info');
 class FieldController extends Controller
 {
-<<<<<<< apiPlatform
-    
-    
-=======
-    const ATTRIBUT = 'required|integer';
-
->>>>>>> main
     /**
  * Affiche une liste de domaines.
  * 
